@@ -1,6 +1,8 @@
 // Places to visit in Zimbabwe. These are real places: keep every line accurate.
 // scene: which illustration to draw (see components/Scene.jsx). It also shows if the photo fails to load.
-// photo: a photo Julius has permission to use. It loads from the original site, so check it still works.
+// photo: a free-licensed photo from Wikimedia Commons (small is 960px wide, large is for the page header).
+//   The licence needs the author and licence named next to the photo: the destination page shows the credit and
+//   /credits lists them all. Only use photos with a licence that allows it; keep the credit with the photo.
 // aka: other spellings people search with.
 // days: [shortest, longest] sensible stay, used by the trip planner.
 // cost: rough guide for a typical trip there (Budget, Moderate, Premium, Luxury).
@@ -28,7 +30,17 @@ export const destinations = [
     bestTime: "February to May for the biggest flow; June to August for clearer views",
     nearbyCategories: ["hotels", "tourism", "safari", "restaurants", "media"],
     scene: "waterfall",
-    photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ68tXzPyia1fK_pyijHEjKSPZHkbezY2AMrYRl3S6hdA&s=10",
+    photo: {
+      small:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Victoria_Falls%2C_Zimbabwe_01.jpg/960px-Victoria_Falls%2C_Zimbabwe_01.jpg",
+      large:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Victoria_Falls%2C_Zimbabwe_01.jpg/1920px-Victoria_Falls%2C_Zimbabwe_01.jpg",
+      caption: "Victoria Falls from the Zimbabwe side",
+      author: "Bernard Gagnon",
+      license: "CC BY-SA 4.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+      source: "https://commons.wikimedia.org/wiki/File:Victoria_Falls,_Zimbabwe_01.jpg",
+    },
   },
   {
     slug: "hwange-national-park",
@@ -47,7 +59,18 @@ export const destinations = [
     bestTime: "July to October, the dry season",
     nearbyCategories: ["safari", "hotels", "tourism", "logistics"],
     scene: "savanna",
-    photo: "https://www.privatetourscapetown.com/images/destinations/zw/hwange.jpg",
+    photo: {
+      small:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Herd_of_elephants_in_the_Hwange_national_park._Zimbabwe._-_panoramio.jpg/960px-Herd_of_elephants_in_the_Hwange_national_park._Zimbabwe._-_panoramio.jpg",
+      large:
+        "https://upload.wikimedia.org/wikipedia/commons/e/e3/Herd_of_elephants_in_the_Hwange_national_park._Zimbabwe._-_panoramio.jpg",
+      caption: "Elephants in Hwange National Park",
+      author: "Jürgen Kehrberger",
+      license: "CC BY-SA 3.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/",
+      source:
+        "https://commons.wikimedia.org/wiki/File:Herd_of_elephants_in_the_Hwange_national_park._Zimbabwe._-_panoramio.jpg",
+    },
   },
   {
     slug: "mana-pools",
@@ -66,7 +89,17 @@ export const destinations = [
     bestTime: "June to October, the dry season",
     nearbyCategories: ["safari", "tourism", "logistics", "hotels"],
     scene: "river",
-    photo: "https://www.tailormadeafrica.com/wp-content/uploads/mana-pools1-1024x499-1.jpeg",
+    photo: {
+      small:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Island_in_the_Zambezi_River_at_Mana_Pools_National_Park.jpg/960px-Island_in_the_Zambezi_River_at_Mana_Pools_National_Park.jpg",
+      large:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Island_in_the_Zambezi_River_at_Mana_Pools_National_Park.jpg/1920px-Island_in_the_Zambezi_River_at_Mana_Pools_National_Park.jpg",
+      caption: "An island in the Zambezi at Mana Pools",
+      author: "Babakathy",
+      license: "CC0",
+      licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/",
+      source: "https://commons.wikimedia.org/wiki/File:Island_in_the_Zambezi_River_at_Mana_Pools_National_Park.jpg",
+    },
   },
   {
     slug: "matobo-national-park",
@@ -85,8 +118,17 @@ export const destinations = [
     bestTime: "April to October",
     nearbyCategories: ["hotels", "tourism", "restaurants", "safari"],
     scene: "kopjes",
-    photo:
-      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/de/c5/31/matobo-national-park.jpg?w=1200&h=-1&s=1",
+    photo: {
+      small:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/ZW_Matobo_Stones.JPG/960px-ZW_Matobo_Stones.JPG",
+      large:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/ZW_Matobo_Stones.JPG/1920px-ZW_Matobo_Stones.JPG",
+      caption: "Granite boulders in the Matobo Hills",
+      author: "Digr",
+      license: "CC BY-SA 3.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/",
+      source: "https://commons.wikimedia.org/wiki/File:ZW_Matobo_Stones.JPG",
+    },
   },
   {
     slug: "great-zimbabwe",
@@ -105,8 +147,17 @@ export const destinations = [
     bestTime: "April to October, when it's dry",
     nearbyCategories: ["tourism", "restaurants", "hotels", "retail"],
     scene: "ruins",
-    photo:
-      "https://tapestry-storage-a0fkf0afgte8hndt.z01.azurefd.net/great-zimbabwe-data/multimedia/great_zimbabwe_splash_image_final.jpg",
+    photo: {
+      small:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Conical_Tower_-_Great_Enclosure_III_%2833736918448%29.jpg/960px-Conical_Tower_-_Great_Enclosure_III_%2833736918448%29.jpg",
+      large:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Conical_Tower_-_Great_Enclosure_III_%2833736918448%29.jpg/1920px-Conical_Tower_-_Great_Enclosure_III_%2833736918448%29.jpg",
+      caption: "The conical tower in the Great Enclosure",
+      author: "Andrew Moore",
+      license: "CC BY-SA 2.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0/",
+      source: "https://commons.wikimedia.org/wiki/File:Conical_Tower_-_Great_Enclosure_III_(33736918448).jpg",
+    },
   },
   {
     slug: "lake-kariba",
@@ -125,8 +176,17 @@ export const destinations = [
     bestTime: "April to October",
     nearbyCategories: ["tourism", "hotels", "restaurants", "logistics"],
     scene: "lake",
-    photo:
-      "https://res.cloudinary.com/enchanting/image/upload/v1/artemis-mdm/places/c303f930-a42d-4327-882f-466e93c31294.jpg",
+    photo: {
+      small:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Kariba_Kapenta_Rig.JPG/960px-Kariba_Kapenta_Rig.JPG",
+      large:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Kariba_Kapenta_Rig.JPG/1920px-Kariba_Kapenta_Rig.JPG",
+      caption: "A kapenta fishing rig on Lake Kariba",
+      author: "Zimrh",
+      license: "CC BY-SA 3.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/",
+      source: "https://commons.wikimedia.org/wiki/File:Kariba_Kapenta_Rig.JPG",
+    },
   },
   {
     slug: "nyanga-national-park",
@@ -145,8 +205,15 @@ export const destinations = [
     bestTime: "Year-round; greenest from November to March",
     nearbyCategories: ["hotels", "tourism", "restaurants", "media"],
     scene: "highlands",
-    photo:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgDL_zw3Ky3jdXLIlO3hI0bB2qqvL-d6ezMcxjg0Q5AMT6CjsIkVHBd1AA&s=10",
+    photo: {
+      small: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Pungwefalls.JPG/960px-Pungwefalls.JPG",
+      large: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Pungwefalls.JPG/1920px-Pungwefalls.JPG",
+      caption: "Pungwe Falls, Nyanga National Park",
+      author: "Babakathy",
+      license: "CC0",
+      licenseUrl: "https://creativecommons.org/publicdomain/zero/1.0/",
+      source: "https://commons.wikimedia.org/wiki/File:Pungwefalls.JPG",
+    },
   },
   {
     slug: "chimanimani-mountains",
@@ -165,8 +232,17 @@ export const destinations = [
     bestTime: "April to October",
     nearbyCategories: ["tourism", "hotels", "logistics", "restaurants"],
     scene: "peaks",
-    photo:
-      "https://visitzimbabwe.b-cdn.net/guides/outdoor-adventures/hiking-chimanimani-mountains-routes-guide-1767765722369.jpg",
+    photo: {
+      small:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Chimanimani_landscape_9_%2810246797903%29.jpg/960px-Chimanimani_landscape_9_%2810246797903%29.jpg",
+      large:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Chimanimani_landscape_9_%2810246797903%29.jpg/1920px-Chimanimani_landscape_9_%2810246797903%29.jpg",
+      caption: "The Chimanimani Mountains, seen from the Mozambique side",
+      author: "Ton Rulkens",
+      license: "CC BY-SA 2.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/2.0/",
+      source: "https://commons.wikimedia.org/wiki/File:Chimanimani_landscape_9_(10246797903).jpg",
+    },
   },
   {
     slug: "gonarezhou",
@@ -185,8 +261,16 @@ export const destinations = [
     bestTime: "May to October",
     nearbyCategories: ["safari", "tourism", "logistics", "hotels"],
     scene: "cliffs",
-    photo:
-      "https://travelessencemag.com/wp-content/uploads/2023/06/travelessence-chilo-gorge-gonarezhou-national-park-zimbabwe-lodges-zambia-in-style-uni.webp",
+    photo: {
+      small:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Zimbabwe_Gonarezhou_Landscape_Chilojo_Cliffs.jpg/960px-Zimbabwe_Gonarezhou_Landscape_Chilojo_Cliffs.jpg",
+      large: "https://upload.wikimedia.org/wikipedia/commons/6/6a/Zimbabwe_Gonarezhou_Landscape_Chilojo_Cliffs.jpg",
+      caption: "The Chilojo Cliffs in Gonarezhou",
+      author: "Ralf Ellerich",
+      license: "CC BY-SA 3.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/",
+      source: "https://commons.wikimedia.org/wiki/File:Zimbabwe_Gonarezhou_Landscape_Chilojo_Cliffs.jpg",
+    },
   },
   {
     slug: "chinhoyi-caves",
@@ -205,8 +289,17 @@ export const destinations = [
     bestTime: "Year-round",
     nearbyCategories: ["tourism", "restaurants", "hotels", "logistics"],
     scene: "cave",
-    photo:
-      "https://images.myguide-cdn.com/zimbabwe/companies/chinhoyi-caves-recreational-park/large/chinhoyi-caves-recreational-park-468284.jpg",
+    photo: {
+      small:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Sleeping_Pool%2C_Chinhoyi_caves%2C_Zimbabwe.JPG/960px-Sleeping_Pool%2C_Chinhoyi_caves%2C_Zimbabwe.JPG",
+      large:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Sleeping_Pool%2C_Chinhoyi_caves%2C_Zimbabwe.JPG/1920px-Sleeping_Pool%2C_Chinhoyi_caves%2C_Zimbabwe.JPG",
+      caption: "The Sleeping Pool at Chinhoyi Caves",
+      author: "Suesen",
+      license: "CC BY-SA 3.0",
+      licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/",
+      source: "https://commons.wikimedia.org/wiki/File:Sleeping_Pool,_Chinhoyi_caves,_Zimbabwe.JPG",
+    },
   },
   {
     slug: "domboshava",
@@ -225,7 +318,15 @@ export const destinations = [
     bestTime: "April to October",
     nearbyCategories: ["tourism", "restaurants", "media", "logistics"],
     scene: "dome",
-    photo: "https://zimbabwetourism.net/wp-content/uploads/2021/11/Domboshava-1024x769-1-770x550.jpg",
+    photo: {
+      small: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Domboshawa.jpg/960px-Domboshawa.jpg",
+      large: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Domboshawa.jpg/1920px-Domboshawa.jpg",
+      caption: "The granite dome at Domboshava",
+      author: "Fanny Schertzer",
+      license: "CC BY 3.0",
+      licenseUrl: "https://creativecommons.org/licenses/by/3.0/",
+      source: "https://commons.wikimedia.org/wiki/File:Domboshawa.jpg",
+    },
   },
   {
     slug: "vumba-mountains",
@@ -245,8 +346,17 @@ export const destinations = [
     bestTime: "March to November",
     nearbyCategories: ["hotels", "restaurants", "tourism", "media"],
     scene: "forest",
-    photo:
-      "https://blog.tracks4africa.co.za/wp-content/uploads/2019/01/Zimbabwe-Eastern-Highlands-Romi-Boom2-1038x576.jpg",
+    photo: {
+      small:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Mount_Vumba_%286555288481%29.jpg/960px-Mount_Vumba_%286555288481%29.jpg",
+      large:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Mount_Vumba_%286555288481%29.jpg/1920px-Mount_Vumba_%286555288481%29.jpg",
+      caption: "Forest on Mount Vumba",
+      author: "Senorhorst Jahnsen",
+      license: "CC BY 2.0",
+      licenseUrl: "https://creativecommons.org/licenses/by/2.0/",
+      source: "https://commons.wikimedia.org/wiki/File:Mount_Vumba_(6555288481).jpg",
+    },
   },
 ];
 

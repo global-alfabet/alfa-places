@@ -11,6 +11,7 @@ import Destination from "./pages/Destination.jsx";
 import Plan from "./pages/Plan.jsx";
 import AddBusiness from "./pages/AddBusiness.jsx";
 import Privacy from "./pages/Privacy.jsx";
+import Credits from "./pages/Credits.jsx";
 import NotFound from "./pages/NotFound.jsx";
 
 // Scroll to the top on every new page (but not when only the search filters change).
@@ -41,6 +42,7 @@ export default function App() {
           <Route path="/plan" element={<Plan />} />
           <Route path="/add-your-business" element={<AddBusiness />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/credits" element={<Credits />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

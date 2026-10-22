@@ -1,7 +1,7 @@
 import { useId } from "react";
 
 // Illustrations of each place to visit, drawn in code so they stay sharp and light.
-// Replace with real photos when we have licensed ones (set `photo` on a destination).
+// Shown when a destination has no photo, or its photo fails to load (see DestinationArt.jsx).
 const W = 800;
 const H = 500;
 
