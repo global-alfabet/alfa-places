@@ -616,16 +616,21 @@ p {
   font-size: 28px;
 }
 
+/* Photos fill their frame without changing its size (a tall photo would otherwise stretch the card). */
+.dest-card-art,
+.route-art,
+.feature-art {
+  position: relative;
+  overflow: hidden;
+}
 .dest-photo {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
   background: var(--soft);
-}
-.dest-hero .dest-photo {
-  position: absolute;
-  inset: 0;
 }
 .dest-hero {
   position: relative;
