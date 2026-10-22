@@ -1,7 +1,58 @@
-// Example listings shown while Alfa Places launches. They are not real businesses: every page marks them
-// "Example listing" and shows no contact details, ratings or reviews. Replace them with real listings as
-// businesses sign up (from the "Add your business" form), then delete the examples.
+// Business listings. Real ones (example: false) come first and show their contact details.
+// The rest are examples shown while Alfa Places launches. They are not real businesses: every page marks them
+// "Example listing" and shows no contact details, ratings or reviews. Delete them once enough real ones sign up.
 export const businesses = [
+  {
+    id: "global-alfabet",
+    name: "Global Alfabet",
+    example: false,
+    category: "technology",
+    city: "Harare",
+    province: "Harare Metropolitan",
+    description:
+      "A technology company that builds and runs digital products (Alfa Maps, Alfa Places and Alfa Shop) and designs and builds websites and platforms for businesses.",
+    services: ["Website development", "UI/UX design", "Digital product strategy"],
+    products: ["Alfa Maps", "Alfa Places", "Alfa Shop"],
+    payments: [],
+    languages: ["English"],
+    amenities: [],
+    keywords: ["web design", "web developers", "website", "software", "apps", "digital"],
+    featured: true,
+    contact: {
+      phone: "+263 772 906 967",
+      whatsapp: "+263 772 906 967",
+      email: "hello@globalalfabet.com",
+      website: "https://www.globalalfabet.com",
+    },
+  },
+  {
+    id: "alfa-maps",
+    name: "Alfa Maps",
+    example: false,
+    category: "real-estate",
+    city: "Harare",
+    province: "Harare Metropolitan",
+    description:
+      "Interactive 3D estate maps for property developers. Buyers explore every plot on their phone, try house designs, and see prices and payment plans before they call your sales team. A Global Alfabet product.",
+    services: [
+      "3D estate maps from your layout plan",
+      "House designer for buyers",
+      "Prices and payment plans per plot",
+      "PDF plot packs",
+    ],
+    products: [],
+    payments: [],
+    languages: ["English"],
+    amenities: [],
+    keywords: ["3d", "estate", "developers", "stands", "plots", "land", "property developers"],
+    featured: true,
+    contact: {
+      phone: "+263 772 906 967",
+      whatsapp: "+263 772 906 967",
+      email: "hello@globalalfabet.com",
+      website: "https://maps.globalalfabet.com",
+    },
+  },
   {
     id: "jacaranda-pet-clinic",
     name: "Jacaranda Pet Clinic",

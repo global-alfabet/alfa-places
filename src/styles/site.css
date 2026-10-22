@@ -616,6 +616,17 @@ p {
   font-size: 28px;
 }
 
+.dest-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: var(--soft);
+}
+.dest-hero .dest-photo {
+  position: absolute;
+  inset: 0;
+}
 .dest-hero {
   position: relative;
   height: clamp(340px, 52vw, 520px);
@@ -1323,13 +1334,18 @@ legend {
   .nav-toggle {
     display: block;
   }
+  /* Hangs below the bar. Not position: fixed, because the bar's backdrop blur makes the bar the containing block. */
+  .nav.is-open {
+    background: var(--bg);
+  }
   .nav.is-open .nav-sheet {
     display: grid;
-    position: fixed;
-    top: var(--nav-h);
+    position: absolute;
+    top: 100%;
     left: 0;
     right: 0;
-    bottom: 0;
+    height: calc(100dvh - var(--nav-h));
+    overflow-y: auto;
     background: var(--bg);
     padding: 16px 28px;
     align-content: start;

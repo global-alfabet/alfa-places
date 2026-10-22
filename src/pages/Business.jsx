@@ -148,10 +148,12 @@ export default function Business() {
                   <dd>{b.languages.join(", ")}</dd>
                 </div>
               )}
-              <div>
-                <dt>Delivery</dt>
-                <dd>{b.delivery ? "Yes" : "No"}</dd>
-              </div>
+              {b.delivery !== undefined && (
+                <div>
+                  <dt>Delivery</dt>
+                  <dd>{b.delivery ? "Yes" : "No"}</dd>
+                </div>
+              )}
               {b.amenities?.length > 0 && (
                 <div>
                   <dt>Extras</dt>
