@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { destinations, interests } from "../content/destinations.js";
 import { businesses } from "../content/businesses.js";
 import { categoryById } from "../content/categories.js";
-import DestinationArt from "../components/DestinationArt.jsx";
+import DestinationArt, { PhotoCredit } from "../components/DestinationArt.jsx";
 import Icon from "../components/Icon.jsx";
 import BusinessCard from "../components/BusinessCard.jsx";
 import DestinationCard from "../components/DestinationCard.jsx";
@@ -37,7 +37,7 @@ export default function Destination() {
   return (
     <>
       <section className="dest-hero">
-        <DestinationArt destination={d} eager />
+        <DestinationArt destination={d} eager sizes="100vw" />
         <div className="dest-hero-copy container">
           <Link className="back on-art" to="/destinations">
             <Icon name="back" size={16} /> Places to visit
@@ -46,6 +46,11 @@ export default function Destination() {
           <p>{d.summary}</p>
         </div>
       </section>
+      {d.photo && (
+        <div className="container">
+          <PhotoCredit photo={d.photo} className="under-hero" />
+        </div>
+      )}
 
       <div className="container page">
         <div className="dest-actions">

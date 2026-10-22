@@ -632,6 +632,34 @@ p {
   display: block;
   background: var(--soft);
 }
+.photo-credit {
+  font-size: 12px;
+  color: var(--ink-3);
+  line-height: 1.4;
+}
+.photo-credit a {
+  color: var(--ink-2);
+}
+.photo-credit.under-hero {
+  margin: 10px 0 -12px;
+}
+.credits {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0;
+  display: grid;
+  gap: 14px;
+}
+.credits li {
+  display: grid;
+  gap: 2px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--soft);
+}
+.credits .photo-credit {
+  font-size: 14px;
+  margin: 0;
+}
 .dest-hero {
   position: relative;
   height: clamp(340px, 52vw, 520px);
