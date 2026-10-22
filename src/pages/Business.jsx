@@ -133,35 +133,40 @@ export default function Business() {
               )}
             </section>
           )}
-          <section className="panel">
-            <h2>Good to know</h2>
-            <dl className="facts">
-              {b.payments?.length > 0 && (
-                <div>
-                  <dt>Payments</dt>
-                  <dd>{b.payments.join(", ")}</dd>
-                </div>
-              )}
-              {b.languages?.length > 0 && (
-                <div>
-                  <dt>Languages</dt>
-                  <dd>{b.languages.join(", ")}</dd>
-                </div>
-              )}
-              {b.delivery !== undefined && (
-                <div>
-                  <dt>Delivery</dt>
-                  <dd>{b.delivery ? "Yes" : "No"}</dd>
-                </div>
-              )}
-              {b.amenities?.length > 0 && (
-                <div>
-                  <dt>Extras</dt>
-                  <dd>{b.amenities.join(", ")}</dd>
-                </div>
-              )}
-            </dl>
-          </section>
+          {(b.payments?.length > 0 ||
+            b.languages?.length > 0 ||
+            b.delivery !== undefined ||
+            b.amenities?.length > 0) && (
+            <section className="panel">
+              <h2>Good to know</h2>
+              <dl className="facts">
+                {b.payments?.length > 0 && (
+                  <div>
+                    <dt>Payments</dt>
+                    <dd>{b.payments.join(", ")}</dd>
+                  </div>
+                )}
+                {b.languages?.length > 0 && (
+                  <div>
+                    <dt>Languages</dt>
+                    <dd>{b.languages.join(", ")}</dd>
+                  </div>
+                )}
+                {b.delivery !== undefined && (
+                  <div>
+                    <dt>Delivery</dt>
+                    <dd>{b.delivery ? "Yes" : "No"}</dd>
+                  </div>
+                )}
+                {b.amenities?.length > 0 && (
+                  <div>
+                    <dt>Extras</dt>
+                    <dd>{b.amenities.join(", ")}</dd>
+                  </div>
+                )}
+              </dl>
+            </section>
+          )}
         </aside>
       </div>
 
