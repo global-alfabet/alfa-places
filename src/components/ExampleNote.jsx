@@ -7,7 +7,7 @@ export default function ExampleNote() {
     <p className="example-note">
       <Icon name="info" size={18} />
       <span>
-        Alfa Places is launching. The businesses shown are examples of how listings will look, not real businesses.{" "}
+        Alfa Places is launching. Listings marked Example show how a listing will look. They aren't real businesses.{" "}
         <Link to="/add-your-business">Add yours</Link> to be one of the first.
       </span>
     </p>

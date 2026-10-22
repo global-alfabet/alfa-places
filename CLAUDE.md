@@ -13,7 +13,8 @@ src/content/destinations.js places to visit: real places, keep every fact accura
 src/lib/search.js           plain-language search ("vets in Harare" → category + town)
 src/lib/planner.js          trip planner: picks places near each other and builds the days
 src/lib/trip.js             places a visitor saved, kept in their browser only
-src/components/Scene.jsx    drawn illustrations of each destination (until we have licensed photos)
+src/components/Scene.jsx    drawn illustrations of each destination, shown when its photo is missing or fails to load
+src/components/DestinationArt.jsx  a destination's photo (destinations.js `photo`), falling back to the illustration
 src/pages/                  Home, Search, Categories, Business, Destinations, Destination, Plan, AddBusiness, Privacy
 src/styles/site.css         all styles; brand tokens at the top
 public/                     logos from the brand kit (github.com/global-alfabet/brand). Don't redraw them here
@@ -33,6 +34,7 @@ public/                     logos from the brand kit (github.com/global-alfabet/
     ratings or reviews.
   - Real listings come from the "Add your business" form after Julius approves them. Only publish what the business sent.
   - Never invent ratings, reviews, phone numbers, addresses or "verified" badges.
+- Only use photos Julius has permission to use. Photos load from the sites that host them, so check they still work.
 - Destination facts must be true and checkable. Don't add prices or opening times that change; link to official
   sources instead.
 - Copy: plain, specific, short sentences. Say "places to visit", "businesses", "plan a trip".

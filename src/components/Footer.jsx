@@ -65,7 +65,7 @@ export default function Footer() {
           <span>
             Alfa Places is a <a href={site.parent.url}>{site.parent.name}</a> product. © {new Date().getFullYear()}
           </span>
-          <span className="footer-note">Business listings shown are examples while we launch.</span>
+          <span className="footer-note">Listings marked Example aren't real businesses.</span>
         </div>
       </div>
     </footer>

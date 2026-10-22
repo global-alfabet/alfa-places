@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { destinations, interests } from "../content/destinations.js";
 import Icon from "../components/Icon.jsx";
-import Scene from "../components/Scene.jsx";
+import DestinationArt from "../components/DestinationArt.jsx";
 import { BUDGETS, START_TOWNS, planTrip } from "../lib/planner.js";
 import { useTrip } from "../lib/trip.js";
 import { usePageTitle } from "../lib/usePageTitle.js";
@@ -166,7 +166,7 @@ export default function Plan() {
                 {plan.stops.map((s, i) => (
                   <Link key={s.destination.slug} className="route-stop" to={`/destinations/${s.destination.slug}`}>
                     <span className="route-art">
-                      <Scene kind={s.destination.scene} label="" />
+                      <DestinationArt destination={s.destination} />
                     </span>
                     <span className="route-n">{i + 1}</span>
                     <strong>{s.destination.name}</strong>

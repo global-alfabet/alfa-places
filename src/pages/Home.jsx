@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import SearchBar from "../components/SearchBar.jsx";
 import CategoryTile from "../components/CategoryTile.jsx";
 import DestinationCard from "../components/DestinationCard.jsx";
-import Scene from "../components/Scene.jsx";
+import DestinationArt from "../components/DestinationArt.jsx";
 import Icon from "../components/Icon.jsx";
 import { categories } from "../content/categories.js";
 import { destinations } from "../content/destinations.js";
@@ -94,7 +94,7 @@ export default function Home() {
               </Link>
             </div>
             <div className="feature-art">
-              <Scene kind="lake" label="Illustration of a sunset over Lake Kariba" />
+              <DestinationArt destination={destinations.find((d) => d.slug === "lake-kariba")} />
             </div>
           </div>
 

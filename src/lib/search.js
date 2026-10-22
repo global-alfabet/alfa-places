@@ -108,7 +108,12 @@ export function searchBusinesses(
       const text = businessText(b);
       return parsed.terms.every((t) => text.includes(t));
     })
-    .sort((a, b) => Number(b.featured) - Number(a.featured) || a.name.localeCompare(b.name));
+    .sort(
+      (a, b) =>
+        Number(!!a.example) - Number(!!b.example) ||
+        Number(b.featured) - Number(a.featured) ||
+        a.name.localeCompare(b.name),
+    );
 }
 
 /** Places to visit that match a search, e.g. "waterfalls" or "Matobo". */
@@ -118,7 +123,9 @@ export function searchDestinations(q) {
   const words = [...terms, ...(town ? [town.toLowerCase()] : [])];
   if (!words.length) return [];
   return destinations.filter((d) => {
-    const text = norm([d.name, d.location, d.region, d.summary, ...d.interests, ...d.activities].join(" "));
+    const text = norm(
+      [d.name, ...(d.aka || []), d.location, d.region, d.summary, ...d.interests, ...d.activities].join(" "),
+    );
     return words.every((w) => text.includes(w));
   });
 }

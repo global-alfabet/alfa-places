@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import Scene from "./Scene.jsx";
+import DestinationArt from "./DestinationArt.jsx";
 import Icon from "./Icon.jsx";
 
 export default function DestinationCard({ destination: d, size = "" }) {
   return (
     <Link className={`dest-card ${size}`} to={`/destinations/${d.slug}`}>
       <div className="dest-card-art">
-        <Scene kind={d.scene} label={`Illustration of ${d.name}`} />
+        <DestinationArt destination={d} />
       </div>
       <div className="dest-card-body">
         <p className="meta">

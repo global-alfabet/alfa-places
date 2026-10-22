@@ -1,5 +1,7 @@
 // Places to visit in Zimbabwe. These are real places: keep every line accurate.
-// scene: which illustration to draw (see components/Scene.jsx) until real photos are added.
+// scene: which illustration to draw (see components/Scene.jsx). It also shows if the photo fails to load.
+// photo: a photo Julius has permission to use. It loads from the original site, so check it still works.
+// aka: other spellings people search with.
 // days: [shortest, longest] sensible stay, used by the trip planner.
 // cost: rough guide for a typical trip there (Budget, Moderate, Premium, Luxury).
 // at: approximate [latitude, longitude], used to keep planned trips from zig-zagging across the country.
@@ -26,6 +28,7 @@ export const destinations = [
     bestTime: "February to May for the biggest flow; June to August for clearer views",
     nearbyCategories: ["hotels", "tourism", "safari", "restaurants", "media"],
     scene: "waterfall",
+    photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ68tXzPyia1fK_pyijHEjKSPZHkbezY2AMrYRl3S6hdA&s=10",
   },
   {
     slug: "hwange-national-park",
@@ -44,6 +47,7 @@ export const destinations = [
     bestTime: "July to October, the dry season",
     nearbyCategories: ["safari", "hotels", "tourism", "logistics"],
     scene: "savanna",
+    photo: "https://www.privatetourscapetown.com/images/destinations/zw/hwange.jpg",
   },
   {
     slug: "mana-pools",
@@ -62,6 +66,7 @@ export const destinations = [
     bestTime: "June to October, the dry season",
     nearbyCategories: ["safari", "tourism", "logistics", "hotels"],
     scene: "river",
+    photo: "https://www.tailormadeafrica.com/wp-content/uploads/mana-pools1-1024x499-1.jpeg",
   },
   {
     slug: "matobo-national-park",
@@ -80,6 +85,8 @@ export const destinations = [
     bestTime: "April to October",
     nearbyCategories: ["hotels", "tourism", "restaurants", "safari"],
     scene: "kopjes",
+    photo:
+      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/de/c5/31/matobo-national-park.jpg?w=1200&h=-1&s=1",
   },
   {
     slug: "great-zimbabwe",
@@ -98,6 +105,8 @@ export const destinations = [
     bestTime: "April to October, when it's dry",
     nearbyCategories: ["tourism", "restaurants", "hotels", "retail"],
     scene: "ruins",
+    photo:
+      "https://tapestry-storage-a0fkf0afgte8hndt.z01.azurefd.net/great-zimbabwe-data/multimedia/great_zimbabwe_splash_image_final.jpg",
   },
   {
     slug: "lake-kariba",
@@ -116,6 +125,8 @@ export const destinations = [
     bestTime: "April to October",
     nearbyCategories: ["tourism", "hotels", "restaurants", "logistics"],
     scene: "lake",
+    photo:
+      "https://res.cloudinary.com/enchanting/image/upload/v1/artemis-mdm/places/c303f930-a42d-4327-882f-466e93c31294.jpg",
   },
   {
     slug: "nyanga-national-park",
@@ -134,6 +145,8 @@ export const destinations = [
     bestTime: "Year-round; greenest from November to March",
     nearbyCategories: ["hotels", "tourism", "restaurants", "media"],
     scene: "highlands",
+    photo:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgDL_zw3Ky3jdXLIlO3hI0bB2qqvL-d6ezMcxjg0Q5AMT6CjsIkVHBd1AA&s=10",
   },
   {
     slug: "chimanimani-mountains",
@@ -152,6 +165,8 @@ export const destinations = [
     bestTime: "April to October",
     nearbyCategories: ["tourism", "hotels", "logistics", "restaurants"],
     scene: "peaks",
+    photo:
+      "https://visitzimbabwe.b-cdn.net/guides/outdoor-adventures/hiking-chimanimani-mountains-routes-guide-1767765722369.jpg",
   },
   {
     slug: "gonarezhou",
@@ -170,6 +185,8 @@ export const destinations = [
     bestTime: "May to October",
     nearbyCategories: ["safari", "tourism", "logistics", "hotels"],
     scene: "cliffs",
+    photo:
+      "https://travelessencemag.com/wp-content/uploads/2023/06/travelessence-chilo-gorge-gonarezhou-national-park-zimbabwe-lodges-zambia-in-style-uni.webp",
   },
   {
     slug: "chinhoyi-caves",
@@ -188,6 +205,8 @@ export const destinations = [
     bestTime: "Year-round",
     nearbyCategories: ["tourism", "restaurants", "hotels", "logistics"],
     scene: "cave",
+    photo:
+      "https://images.myguide-cdn.com/zimbabwe/companies/chinhoyi-caves-recreational-park/large/chinhoyi-caves-recreational-park-468284.jpg",
   },
   {
     slug: "domboshava",
@@ -206,24 +225,28 @@ export const destinations = [
     bestTime: "April to October",
     nearbyCategories: ["tourism", "restaurants", "media", "logistics"],
     scene: "dome",
+    photo: "https://zimbabwetourism.net/wp-content/uploads/2021/11/Domboshava-1024x769-1-770x550.jpg",
   },
   {
-    slug: "bvumba-mountains",
+    slug: "vumba-mountains",
     at: [-19.1, 32.75],
-    name: "Bvumba Mountains",
+    name: "Vumba Mountains",
+    aka: ["Bvumba"],
     location: "Near Mutare, Manicaland",
     region: "Manicaland",
     summary: "Misty forests, botanical gardens and mountain views near Mutare.",
     description:
-      'The Bvumba, "mountains of the mist", rise just outside Mutare. Walk in the botanical gardens and forest, look for rare birds, and slow down for a few days.',
+      'The Vumba (also spelled Bvumba), "mountains of the mist", rise just outside Mutare. Walk in the botanical gardens and forest, look for rare birds, and slow down for a few days.',
     interests: ["mountains", "relaxation", "nature", "photography", "food"],
-    activities: ["Bvumba Botanical Gardens", "Forest walks", "Birding", "Long lunches with a view"],
+    activities: ["Vumba Botanical Gardens", "Forest walks", "Birding", "Long lunches with a view"],
     duration: "2–3 days",
     days: [2, 3],
     cost: "Moderate",
     bestTime: "March to November",
     nearbyCategories: ["hotels", "restaurants", "tourism", "media"],
     scene: "forest",
+    photo:
+      "https://blog.tracks4africa.co.za/wp-content/uploads/2019/01/Zimbabwe-Eastern-Highlands-Romi-Boom2-1038x576.jpg",
   },
 ];
 
