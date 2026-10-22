@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Alfa Places · Find places worth knowing in Zimbabwe</title>
+    <meta
+      name="description"
+      content="Find businesses, attractions and places to visit across Zimbabwe, plan a trip, and list your business on Alfa Places."
+    />
+    <meta property="og:title" content="Alfa Places · Find places worth knowing in Zimbabwe" />
+    <meta property="og:description" content="Businesses, attractions and places to visit across Zimbabwe. A Global Alfabet product." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://places.globalalfabet.com/" />
+    <meta name="theme-color" content="#ffffff" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- Lets Netlify Forms detect the form at build time. Field names must match src/pages/AddBusiness.jsx -->
+    <form name="add-business" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input name="businessName" /><input name="category" /><input name="otherCategory" /><input name="town" /><input
+        name="address"
+      /><textarea name="description"></textarea><textarea name="services"></textarea><input name="hours" /><input
+        name="payments"
+      /><input name="delivery" /><input name="phone" /><input name="whatsapp" /><input name="email" /><input
+        name="website"
+      /><input name="contactName" /><input name="contactRole" /><input name="consent" /><input name="bot-field" />
+    </form>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
