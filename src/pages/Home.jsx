@@ -7,6 +7,7 @@ import Icon from "../components/Icon.jsx";
 import { categories } from "../content/categories.js";
 import { destinations } from "../content/destinations.js";
 import { usePageTitle } from "../lib/usePageTitle.js";
+import { asset } from "../lib/asset.js";
 
 const HINTS = ["Vets in Harare", "Restaurants in Bulawayo", "Hotels in Victoria Falls", "Phone repairs", "Waterfalls"];
 const FEATURED = [
@@ -24,7 +25,7 @@ export default function Home() {
     <>
       <section className="hero">
         <div className="container hero-inner">
-          <img className="hero-icon" src="/alfa-places-icon.svg" alt="" width="88" height="88" />
+          <img className="hero-icon" src={asset("/alfa-places-icon.svg")} alt="" width="88" height="88" />
           <p className="eyebrow">Alfa Places</p>
           <h1>Find places worth knowing.</h1>
           <p className="lead">Businesses, attractions and places to visit across Zimbabwe, in one search.</p>

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { site } from "../config.js";
+import { asset } from "../lib/asset.js";
 
 export default function Footer() {
   return (
@@ -60,7 +61,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="footer-base">
-          <img src="/global-alfabet-glyph-black.svg" alt="" height="14" />
+          <img src={asset("/global-alfabet-glyph-black.svg")} alt="" height="14" />
           <span>
             Alfa Places is a <a href={site.parent.url}>{site.parent.name}</a> product. © {new Date().getFullYear()}
           </span>

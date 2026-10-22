@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import Icon from "./Icon.jsx";
+import { asset } from "../lib/asset.js";
 
 const links = [
   { to: "/destinations", label: "Places to visit" },
@@ -20,7 +21,7 @@ export default function Nav() {
     <header className={`nav${open ? " is-open" : ""}`}>
       <div className="nav-inner">
         <Link to="/" className="nav-brand" aria-label="Alfa Places home">
-          <img src="/alfa-places-lockup-light.svg" alt="Alfa Places" height="26" />
+          <img src={asset("/alfa-places-lockup-light.svg")} alt="Alfa Places" height="26" />
         </Link>
         <nav className="nav-links" aria-label="Main">
           {links.map((l) => (
