@@ -143,9 +143,9 @@ export const destinations = [
     region: "Manicaland",
     summary: "Rugged quartzite peaks and wild hiking trails on the border with Mozambique.",
     description:
-      "Chimanimani is for walkers. Trails climb into a high, rocky wilderness of peaks, streams and caves, with nights spent in mountain huts or camping. Go with a local guide.",
+      "Chimanimani is for walkers. Trails climb into a high, rocky wilderness of peaks, streams and caves, with nights in the mountain hut or camping. Go with a local guide.",
     interests: ["mountains", "adventure", "nature", "photography", "relaxation"],
-    activities: ["Mountain hiking", "Overnight in a mountain hut", "Bridal Veil Falls", "Landscape photography"],
+    activities: ["Mountain hiking", "A night in the mountain hut", "Bridal Veil Falls", "Landscape photography"],
     duration: "2–4 days",
     days: [2, 4],
     cost: "Budget",
