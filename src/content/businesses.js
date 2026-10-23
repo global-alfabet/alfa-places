@@ -1,5 +1,5 @@
 // Business listings. Real ones (example: false) come first and show their contact details.
-// The rest are examples shown while Alfa Places launches. They are not real businesses: every page marks them
+// The rest are examples shown while Alfa Finda launches. They are not real businesses: every page marks them
 // "Example listing" and shows no contact details, ratings or reviews. Delete them once enough real ones sign up.
 export const businesses = [
   {
@@ -11,9 +11,9 @@ export const businesses = [
     city: "Harare",
     province: "Harare Metropolitan",
     description:
-      "A technology company that builds and runs digital products (Alfa Maps, Alfa Places and Alfa Shop) and designs and builds websites and platforms for businesses.",
+      "A technology company that builds and runs digital products (Alfa Maps, Alfa Finda and Alfa Shop) and designs and builds websites and platforms for businesses.",
     services: ["Website development", "UI/UX design", "Digital product strategy"],
-    products: ["Alfa Maps", "Alfa Places", "Alfa Shop"],
+    products: ["Alfa Maps", "Alfa Finda", "Alfa Shop"],
     payments: [],
     languages: ["English"],
     amenities: [],

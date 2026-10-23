@@ -25,8 +25,8 @@ export default function Home() {
     <>
       <section className="hero">
         <div className="container hero-inner">
-          <img className="hero-icon" src={asset("/alfa-places-icon.svg")} alt="" width="88" height="88" />
-          <p className="eyebrow">Alfa Places</p>
+          <img className="hero-icon" src={asset("/alfa-finda-icon.svg")} alt="" width="88" height="88" />
+          <p className="eyebrow">Alfa Finda</p>
           <h1>Find places worth knowing.</h1>
           <p className="lead">Businesses, attractions and places to visit across Zimbabwe, in one search.</p>
           <SearchBar size="large" />
@@ -86,7 +86,7 @@ export default function Home() {
               <p className="eyebrow">Plan a trip</p>
               <h2>Tell us what you love. We'll plan the days.</h2>
               <p className="lead">
-                Pick your interests, how long you have and your budget. Alfa Places suggests where to go, in an order
+                Pick your interests, how long you have and your budget. Alfa Finda suggests where to go, in an order
                 that makes sense on the road, and what to do each day.
               </p>
               <Link className="btn" to="/plan">

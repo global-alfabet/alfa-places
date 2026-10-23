@@ -1,5 +1,5 @@
-/* Alfa Places. Global Alfabet design language: clean Apple-style pages, white and #f5f5f7, Inter, pill buttons,
-   rounded 28px cards. One accent: Alfa Places coral. Use --accent for fills and icons, --accent-strong for text and
+/* Alfa Finda. Global Alfabet design language: clean Apple-style pages, white and #f5f5f7, Inter, pill buttons,
+   rounded 28px cards. One accent: Alfa Finda coral. Use --accent for fills and icons, --accent-strong for text and
    buttons (white on it passes WCAG AA). Brand tokens first; use them instead of new colours. */
 :root {
   --ink: #1d1d1f;

@@ -1,9 +1,9 @@
 {
-  "name": "alfa-places",
+  "name": "alfa-finda",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Alfa Places (places.globalalfabet.com): businesses, attractions and places to visit in Zimbabwe",
+  "description": "Alfa Finda (finda.globalalfabet.com): businesses, attractions and places to visit in Zimbabwe",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

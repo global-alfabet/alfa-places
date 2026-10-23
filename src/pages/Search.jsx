@@ -123,7 +123,7 @@ export default function Search() {
               <div className="empty">
                 <h2>Nothing matches yet.</h2>
                 <p className="muted">
-                  Try a broader search, like a kind of business (“mechanics”, “hotels”) or a town. Alfa Places is new,
+                  Try a broader search, like a kind of business (“mechanics”, “hotels”) or a town. Alfa Finda is new,
                   so some businesses aren't listed yet.
                 </p>
                 <p>

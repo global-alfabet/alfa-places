@@ -1,6 +1,6 @@
-# places.globalalfabet.com: guide for Claude Code
+# finda.globalalfabet.com: guide for Claude Code
 
-Alfa Places is a Global Alfabet product: businesses, attractions and places to visit across Zimbabwe, in one search.
+Alfa Finda is a Global Alfabet product: businesses, attractions and places to visit across Zimbabwe, in one search.
 Version 1 is frontend only (React 18 + Vite + react-router, plain JavaScript). No server, no database, no accounts.
 Sign-in, reviews and business dashboards arrive later with the shared Global Alfabet Account.
 
@@ -27,9 +27,9 @@ public/                     logos from the brand kit (github.com/global-alfabet/
 
 ## Rules
 - Design language: the Global Alfabet look, based on business.apple.com. White and #f5f5f7 sections, Inter, large
-  confident headings, pill buttons, rounded 28px cards. Alfa Places coral is the one accent: `--accent` for fills and
+  confident headings, pill buttons, rounded 28px cards. Alfa Finda coral is the one accent: `--accent` for fills and
   icons, `--accent-strong` for text and buttons. No new colours.
-- Product names are always written in full: Alfa Places, Alfa Maps, Alfa Shop, Global Alfabet Account.
+- Product names are always written in full: Alfa Finda, Alfa Maps, Alfa Shop, Global Alfabet Account.
 - Listings must be honest:
   - Example listings have `example: true`, are labelled "Example" everywhere, and never show contact details,
     ratings or reviews.

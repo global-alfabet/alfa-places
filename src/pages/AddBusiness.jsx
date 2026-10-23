@@ -12,7 +12,7 @@ const PAYMENTS = ["Cash", "Cards", "EcoCash", "InnBucks", "OneMoney", "Bank tran
 export default function AddBusiness() {
   usePageTitle(
     "Add your business",
-    "List your business on Alfa Places so customers and travellers in Zimbabwe can find you.",
+    "List your business on Alfa Finda so customers and travellers in Zimbabwe can find you.",
   );
   const [state, setState] = useState("idle");
   const [category, setCategory] = useState("");
@@ -43,7 +43,7 @@ export default function AddBusiness() {
         <p className="lead">We'll check the details and get back to you. Your listing goes live once it's approved.</p>
         <p>
           <Link className="btn" to="/">
-            Back to Alfa Places
+            Back to Alfa Finda
           </Link>
         </p>
       </div>
@@ -181,7 +181,7 @@ export default function AddBusiness() {
           </div>
           <label className="check">
             <input type="checkbox" name="consent" value="Yes" required /> I own or manage this business, the details are
-            correct, and Alfa Places may publish them.
+            correct, and Alfa Finda may publish them.
           </label>
         </fieldset>
 

@@ -9,7 +9,7 @@ export default function NotFound() {
       <p className="lead">It may have moved, or the address may be mistyped.</p>
       <p>
         <Link className="btn" to="/">
-          Go to Alfa Places
+          Go to Alfa Finda
         </Link>
       </p>
     </div>
