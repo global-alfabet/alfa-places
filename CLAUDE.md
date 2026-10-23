@@ -50,5 +50,6 @@ public/                     logos from the brand kit (github.com/global-alfabet/
 
 ## Adding a real business
 Take the details from the Netlify form submission and add an entry to `src/content/businesses.js` with
-`example: false`, plus `contact: { phone, whatsapp, email, website, address }`. The business page shows contact
+`example: false`, plus `contact: { phone, whatsapp, email, website, address }`. If the business sends a logo, save it
+as `public/logos/<id>.svg` (or `.png`, square) and add `logo: "/logos/<id>.svg"`; otherwise its category icon shows. The business page shows contact
 details only for real listings. When there are enough real ones, delete the examples and `ExampleNote`.

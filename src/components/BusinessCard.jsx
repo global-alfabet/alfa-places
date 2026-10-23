@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import { categoryById } from "../content/categories.js";
-import { CategoryIcon } from "./CategoryTile.jsx";
+import BusinessLogo from "./BusinessLogo.jsx";
 import Icon from "./Icon.jsx";
 
 export default function BusinessCard({ business: b }) {
   const c = categoryById[b.category];
   return (
     <Link className="biz-card" to={`/business/${b.id}`}>
-      <CategoryIcon icon={c?.icon} size={52} />
+      <BusinessLogo business={b} category={c} size={52} />
       <div className="biz-card-body">
         <div className="biz-card-top">
           <h3>{b.name}</h3>
