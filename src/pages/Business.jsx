@@ -108,9 +108,21 @@ export default function Business() {
                     </a>
                   </li>
                 )}
-                {b.contact?.address && (
+                {(b.contact?.address || b.contact?.map) && (
                   <li>
-                    <Icon name="pin" size={18} /> {b.contact.address}
+                    <Icon name="pin" size={18} /> {b.contact.address || b.city}
+                    {b.contact.map && (
+                      <>
+                        {" · "}
+                        <a
+                          href={`https://www.google.com/maps/dir/?api=1&destination=${b.contact.map.join(",")}`}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          Get directions
+                        </a>
+                      </>
+                    )}
                   </li>
                 )}
               </ul>
