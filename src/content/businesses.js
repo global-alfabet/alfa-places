@@ -4,6 +4,7 @@
 export const businesses = [
   {
     id: "global-alfabet",
+    logo: "/logos/global-alfabet.svg",
     name: "Global Alfabet",
     example: false,
     category: "technology",
@@ -27,6 +28,7 @@ export const businesses = [
   },
   {
     id: "alfa-maps",
+    logo: "/logos/alfa-maps.svg",
     name: "Alfa Maps",
     example: false,
     category: "real-estate",
@@ -55,6 +57,7 @@ export const businesses = [
   },
   {
     id: "jetwash",
+    logo: "/logos/jetwash.svg",
     name: "JetWash (Pvt) Ltd",
     example: false,
     category: "cleaning",

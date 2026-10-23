@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { businesses } from "../content/businesses.js";
 import { categoryById } from "../content/categories.js";
 import { destinations } from "../content/destinations.js";
-import { CategoryIcon } from "../components/CategoryTile.jsx";
+import BusinessLogo from "../components/BusinessLogo.jsx";
 import BusinessCard from "../components/BusinessCard.jsx";
 import DestinationCard from "../components/DestinationCard.jsx";
 import Icon from "../components/Icon.jsx";
@@ -26,7 +26,7 @@ export default function Business() {
         <Icon name="back" size={16} /> {c?.name}
       </Link>
       <header className="biz-head">
-        <CategoryIcon icon={c?.icon} size={88} />
+        <BusinessLogo business={b} category={c} size={88} />
         <div>
           {b.example && <span className="tag">Example listing</span>}
           <h1>{b.name}</h1>
