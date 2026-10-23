@@ -93,6 +93,7 @@ export const businesses = [
       phone: "+263 772 327 148",
       whatsapp: "+263 772 906 967",
       email: "info@jetwash.co.zw",
+      map: [-17.876306, 31.049917], // 17°52'34.7"S 31°02'59.7"E
     },
   },
   {
