@@ -66,7 +66,7 @@ export default function Footer() {
         <div className="footer-base">
           <img src={asset("/global-alfabet-glyph-black.svg")} alt="" height="14" />
           <span>
-            Alfa Places is a <a href={site.parent.url}>{site.parent.name}</a> product. © {new Date().getFullYear()}
+            Alfa Finda is a <a href={site.parent.url}>{site.parent.name}</a> product. © {new Date().getFullYear()}
           </span>
           <span className="footer-note">Listings marked Example aren't real businesses.</span>
         </div>

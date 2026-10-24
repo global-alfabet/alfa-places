@@ -1,8 +1,8 @@
-// Alfa Places details used across the site. Edit here, not in the pages.
+// Alfa Finda details used across the site. Edit here, not in the pages.
 export const site = {
-  name: "Alfa Places",
+  name: "Alfa Finda",
   country: "Zimbabwe",
-  url: "https://places.globalalfabet.com",
+  url: "https://finda.globalalfabet.com",
   email: "hello@globalalfabet.com",
   phone: "+263 772 906 967",
   whatsapp: "263772906967", // digits only, used for wa.me links

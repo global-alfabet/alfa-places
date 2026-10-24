@@ -20,8 +20,8 @@ export default function Nav() {
   return (
     <header className={`nav${open ? " is-open" : ""}`}>
       <div className="nav-inner">
-        <Link to="/" className="nav-brand" aria-label="Alfa Places home">
-          <img src={asset("/alfa-places-lockup-light.svg")} alt="Alfa Places" height="26" />
+        <Link to="/" className="nav-brand" aria-label="Alfa Finda home">
+          <img src={asset("/alfa-finda-lockup-light.svg")} alt="Alfa Finda" height="26" />
         </Link>
         <nav className="nav-links" aria-label="Main">
           {links.map((l) => (

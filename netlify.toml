@@ -5,6 +5,14 @@
 [build.environment]
   NODE_VERSION = "22"
 
+# The old address (Alfa Places) moves to the new one. places.globalalfabet.com stays on this Netlify site as a
+# domain alias so this rule can send every old link to the same page on finda.globalalfabet.com.
+[[redirects]]
+  from = "https://places.globalalfabet.com/*"
+  to = "https://finda.globalalfabet.com/:splat"
+  status = 301
+  force = true
+
 # Single-page app: every address is handled by React
 [[redirects]]
   from = "/*"

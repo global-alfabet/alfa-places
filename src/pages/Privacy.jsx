@@ -6,8 +6,8 @@ export default function Privacy() {
   return (
     <div className="container page narrow prose">
       <p className="eyebrow">Privacy</p>
-      <h1>Your privacy on Alfa Places</h1>
-      <p className="lead">Alfa Places is run by {site.parent.name}. We collect as little as we can.</p>
+      <h1>Your privacy on Alfa Finda</h1>
+      <p className="lead">Alfa Finda is run by {site.parent.name}. We collect as little as we can.</p>
 
       <h2>Browsing and searching</h2>
       <p>
