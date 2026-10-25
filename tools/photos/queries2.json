@@ -1,0 +1,10 @@
+{
+  "solar2": ["solar panel", "photovoltaic installation", "solar power africa", "solar panels house"],
+  "beauty2": ["barber shop", "beauty salon", "manicure nails", "hairdresser"],
+  "retail2": ["vegetable market", "hardware tools shelves", "grocery shop", "fruit stall"],
+  "logistics2": ["delivery van", "warehouse boxes", "truck road", "parcel delivery"],
+  "legal2": ["law office", "meeting room table", "signing documents"],
+  "driving2": ["learner driver", "car steering wheel"],
+  "health2": ["dentist chair", "stethoscope doctor"],
+  "plumbing2": ["pipe wrench", "bathroom faucet", "water pipes"]
+}

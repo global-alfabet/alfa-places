@@ -4,9 +4,10 @@ import io, json, os, re, time, urllib.parse, urllib.request
 from PIL import Image, ImageDraw, ImageFont
 
 HERE = os.path.dirname(__file__)
-OUT = os.path.join(HERE, "out")
+import sys
+OUT = os.path.join(HERE, sys.argv[2] if len(sys.argv) > 2 else "out")
 os.makedirs(OUT, exist_ok=True)
-QUERIES = json.load(open(os.path.join(HERE, "queries.json")))
+QUERIES = json.load(open(os.path.join(HERE, sys.argv[1] if len(sys.argv) > 1 else "queries.json")))
 UA = "AlfaFindaPhotoBot/1.0 (https://finda.globalalfabet.com; hello@globalalfabet.com)"
 LOG = []
 
@@ -77,7 +78,7 @@ for cat, queries in QUERIES.items():
             seen.add(it["id"])
             items.append(it)
             n += 1
-            if n >= 10:
+            if n >= 8:
                 break
     tw, th, cols = 320, 214, 5
     rows = max(1, (len(items) + cols - 1) // cols)
