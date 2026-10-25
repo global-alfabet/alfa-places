@@ -7,39 +7,45 @@ import Icon from "../components/Icon.jsx";
 import { KINDS } from "../lib/kinds.js";
 import { categoryById } from "../content/categories.js";
 import { destinations } from "../content/destinations.js";
-import { businesses } from "../content/businesses.js";
+import { useDirectory, useStore } from "../lib/store.js";
 import { usePageTitle } from "../lib/usePageTitle.js";
 import { asset } from "../lib/asset.js";
+import { site } from "../config.js";
 
 // Section order follows the Alfa Finda Figma design (docs/figma.md): search, categories, featured partners,
 // recently added, then places to visit and a banner for business owners.
 const HINTS = ["Plumbers in Harare", "Solar installers", "Electricians in Bulawayo", "Braids", "Vets", "Waterfalls"];
-const HOME_CATEGORIES = ["plumbing", "electrical", "solar", "restaurants", "beauty", "automotive", "health"];
 const FEATURED_PLACES = ["victoria-falls", "great-zimbabwe", "mana-pools"];
-
-const featured = businesses
-  .filter((b) => b.featured && (b.rating || !b.example))
-  .sort((a, b) => Number(!!b.example) - Number(!!a.example) || (b.rating || 0) - (a.rating || 0))
-  .slice(0, 6);
-const recent = businesses
-  .filter((b) => b.added)
-  .sort((a, b) => b.added.localeCompare(a.added))
-  .slice(0, 4);
-const kindCounts = Object.keys(KINDS).map((k) => [k, businesses.filter((b) => b.kind === k).length]);
 
 export default function Home() {
   usePageTitle();
+  // The headline, categories and listings come from the test store, so the admin dashboard can change them.
+  const { state } = useStore();
+  const home = state.home;
+  const businesses = useDirectory();
+  // Any the admin dashboard featured on this visit come first, then the same order as before.
+  const justFeatured = (b) => Number(!!state.edits[b.id]?.featured);
+  const featured = businesses
+    .filter((b) => b.featured && (b.rating || !b.example))
+    .sort(
+      (a, b) =>
+        justFeatured(b) - justFeatured(a) || Number(!!b.example) - Number(!!a.example) || (b.rating || 0) - (a.rating || 0),
+    )
+    .slice(0, 12);
+  const recent = businesses
+    .filter((b) => b.added)
+    .sort((a, b) => b.added.localeCompare(a.added))
+    .slice(0, 4);
+  const kindCounts = Object.keys(KINDS).map((k) => [k, businesses.filter((b) => b.kind === k).length]);
   return (
     <>
       <section className="hero">
         <div className="container hero-inner">
           <img className="hero-icon" src={asset("/alfa-finda-icon.svg")} alt="" width="88" height="88" />
           <p className="eyebrow">Alfa Finda</p>
-          <h1>Find the right service, near you.</h1>
-          <p className="lead">
-            Plumbers, electricians, solar installers, salons, clinics and places to go across Zimbabwe, in one search.
-          </p>
-          <SearchBar size="large" withTown placeholder="What do you need done?" shortPlaceholder="Search" />
+          <h1>{home.headline}</h1>
+          <p className="lead">{home.lead}</p>
+          <SearchBar size="large" withTown placeholder={home.placeholder} shortPlaceholder="Search" />
           <div className="hints" aria-label="Popular searches">
             {HINTS.map((h) => (
               <Link key={h} to={`/search?q=${encodeURIComponent(h)}`}>
@@ -59,7 +65,7 @@ export default function Home() {
             </Link>
           </div>
           <ul className="cat-cards" aria-label="Business categories">
-            {HOME_CATEGORIES.map((id) => categoryById[id]).map((c) => (
+            {home.categories.map((id) => categoryById[id]).filter(Boolean).map((c) => (
               <li key={c.id}>
                 <Link className="cat-card" to={`/search?category=${c.id}`}>
                   <span className="cat-dot" aria-hidden="true">
@@ -195,9 +201,15 @@ export default function Home() {
                 <Link className="btn btn-white" to="/add-your-business">
                   Add your business
                 </Link>
-                <Link className="btn btn-ghost" to="/categories">
-                  Browse businesses
-                </Link>
+                {site.demo ? (
+                  <Link className="btn btn-ghost" to="/sign-in">
+                    Try the business dashboard
+                  </Link>
+                ) : (
+                  <Link className="btn btn-ghost" to="/categories">
+                    Browse businesses
+                  </Link>
+                )}
               </div>
             </div>
             <div className="cta-art" aria-hidden="true">

@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { destinations, interests } from "../content/destinations.js";
-import { businesses } from "../content/businesses.js";
+import { useDirectory } from "../lib/store.js";
 import { categoryById } from "../content/categories.js";
 import DestinationArt, { PhotoCredit } from "../components/DestinationArt.jsx";
 import Icon from "../components/Icon.jsx";
@@ -17,6 +17,7 @@ export default function Destination() {
   const { slug } = useParams();
   const d = destinations.find((x) => x.slug === slug);
   const trip = useTrip();
+  const businesses = useDirectory();
   usePageTitle(d?.name, d?.summary);
   if (!d) return <NotFound />;
   const saved = trip.has(d.slug);

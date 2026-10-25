@@ -4,7 +4,7 @@ import SearchBar from "../components/SearchBar.jsx";
 import BusinessCard from "../components/BusinessCard.jsx";
 import DestinationCard from "../components/DestinationCard.jsx";
 import Icon from "../components/Icon.jsx";
-import { businesses } from "../content/businesses.js";
+import { useDirectory } from "../lib/store.js";
 import { categories, towns } from "../content/categories.js";
 import { KINDS } from "../lib/kinds.js";
 import { SORTS, searchBusinesses, searchDestinations, describeSearch, parseQuery } from "../lib/search.js";
@@ -59,7 +59,8 @@ export default function Search() {
   const page = Math.max(1, Number(params.get("page")) || 1);
   const town = opts.town || parsed.town;
   const centre = near || (town && townCentres[town]) || null;
-  const results = useMemo(() => searchBusinesses(businesses, { ...opts, centre }), [params, near]); // eslint-disable-line react-hooks/exhaustive-deps
+  const directory = useDirectory();
+  const results = useMemo(() => searchBusinesses(directory, { ...opts, centre }), [directory, params, near]); // eslint-disable-line react-hooks/exhaustive-deps
   const places = useMemo(() => (page === 1 ? searchDestinations(q) : []), [q, page]);
   const pages = Math.max(1, Math.ceil(results.length / PER_PAGE));
   const shown = results.slice((page - 1) * PER_PAGE, page * PER_PAGE);

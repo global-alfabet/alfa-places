@@ -2,7 +2,8 @@
 
 Alfa Finda is a Global Alfabet product: businesses, attractions and places to visit across Zimbabwe, in one search.
 Version 1 is frontend only (React 18 + Vite + react-router, plain JavaScript). No server, no database, no accounts.
-Sign-in, reviews and business dashboards arrive later with the shared Global Alfabet Account.
+Sign-in, reviews and business dashboards arrive later with the shared Global Alfabet Account (test mode previews
+them with example data).
 
 ## Layout
 ```
@@ -10,6 +11,8 @@ src/config.js               contact details and links (edit content here, not in
 src/content/businesses.js   real business listings (from the Add your business form)
 src/content/examples.js     fictional example businesses for test mode (site.demo). Delete at launch
 src/content/photos.js       free-licensed photos used by example listings, with credits
+src/content/demo-dashboard.js  test-mode extras: owners, enquiries, sample reviews, approvals, reports. Delete at launch
+src/lib/store.js            test-mode state shared by the public pages and the dashboards (in memory only)
 src/content/categories.js   categories (+ the words people search with), towns, provinces
 src/content/destinations.js places to visit: real places, keep every fact accurate
 src/lib/search.js           plain-language search ("vets in Harare" → category + town), filters, sorting, distance
@@ -21,6 +24,8 @@ src/components/Scene.jsx    drawn illustrations of each destination, shown when 
 src/components/DestinationArt.jsx  a destination's photo (destinations.js `photo`), falling back to the illustration
 src/pages/                  Home, Search, Categories, Business, Destinations, Destination, Plan, AddBusiness, Privacy,
                             Credits (photo credits)
+src/pages/dashboard/        test dashboards (site.demo only, lazy-loaded): SignIn, Owner* (/dashboard), Admin* (/admin)
+src/components/dash/        dashboard shell, stat cards, switches, charts
 src/styles/site.css         all styles; brand tokens at the top
 public/                     logos from the brand kit (github.com/global-alfabet/brand). Don't redraw them here
 ```
@@ -45,6 +50,10 @@ public/                     logos from the brand kit (github.com/global-alfabet/
     badges on real listings only when Julius grants them.
   - Business kinds: `company` (registered company, can be Verified), `small` (small business or sole trader),
     `freelancer` (works for themselves).
+- Test dashboards (`/sign-in`, `/dashboard`, `/admin`) exist only in test mode. They work on example listings, keep
+  every change in memory (src/lib/store.js), send nothing and save nothing, and say so on every page. Their numbers
+  are samples, labelled as such. Real listings can't be changed from them. Don't add Billing, plans or prices until
+  Julius decides them. Real dashboards arrive with the Global Alfabet Account.
 - Photos must be free-licensed (CC0, CC BY, CC BY-SA, via Wikimedia Commons or Openverse; or the Unsplash License) or
   licensed by Julius (Adobe Stock). Never use a photo copied from another website. Keep each photo's author, licence
   and source with it (`destinations.js`, `photos.js`): `/credits` lists them all. Stock photos on example listings only
@@ -65,5 +74,6 @@ Take the details from the Netlify form submission and add an entry to `src/conte
 `example: false`, plus `contact: { phone, whatsapp, email, website, address, map: [lat, lng] }` (`map` adds a Get directions link). If the business sends a logo, save it
 as `public/logos/<id>.svg` (or `.png`, square) and add `logo: "/logos/<id>.svg"`; otherwise its category icon shows. The business page shows contact
 details only for real listings. Add `kind`, and `tagline`, `services`, `hours`, `priceFrom` and `photos` when the
-business sends them. When there are enough real ones, set `demo: false`, then delete examples.js (and its import
-in businesses.js) and the example photos in photos.js and public/photos/examples.
+business sends them. When there are enough real ones, set `demo: false`, then delete examples.js and
+demo-dashboard.js (and their imports in businesses.js), the example photos in photos.js and public/photos/examples,
+and the test dashboards (src/pages/dashboard, src/components/dash, src/lib/store.js and their routes in App.jsx).
