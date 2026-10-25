@@ -1,0 +1,69 @@
+plumbing | plumber | openverse: 4
+plumbing | plumber | commons: 8
+plumbing | plumbing repair | openverse: 1
+plumbing | plumbing repair | commons: 7
+electrical | electrician | openverse: 18
+electrical | electrical wiring | openverse: 20
+solar | solar panels installation | openverse: 7
+solar | solar panels roof | openverse: 6
+construction | construction workers africa | openverse: 0
+construction | construction workers africa | commons: 13
+construction | bricklaying | openverse: 1
+construction | bricklaying | commons: 16
+home-services | house painting | openverse: 20
+home-services | carpenter workshop | openverse: 8
+cleaning | cleaning service | openverse: 9
+cleaning | pressure washing | openverse: 0
+cleaning | pressure washing | commons: 10
+restaurants | african food restaurant | openverse: 1
+restaurants | african food restaurant | commons: 12
+restaurants | restaurant interior | openverse: 20
+hotels | safari lodge | openverse: 0
+hotels | safari lodge | commons: 17
+hotels | hotel room | openverse: 20
+tourism | lake kariba | openverse: 0
+tourism | lake kariba | commons: 13
+tourism | great zimbabwe | openverse: 0
+tourism | great zimbabwe | commons: 7
+safari | hwange elephants | openverse: 0
+safari | hwange elephants | commons: 8
+safari | safari vehicle | openverse: 9
+veterinary | veterinarian | openverse: 12
+veterinary | veterinary clinic | openverse: 1
+veterinary | veterinary clinic | commons: 10
+health | pharmacy | openverse: 20
+health | doctor clinic africa | openverse: 2
+health | doctor clinic africa | commons: 14
+beauty | hair salon | openverse: 10
+beauty | braids hairstyle | openverse: 6
+automotive | car mechanic | openverse: 20
+automotive | auto repair garage | openverse: 2
+automotive | auto repair garage | commons: 12
+technology | phone repair | openverse: 1
+technology | phone repair | commons: 7
+technology | computer repair | openverse: 2
+technology | computer repair | commons: 11
+legal | lawyer office | openverse: 2
+legal | lawyer office | commons: 7
+legal | law books | openverse: 10
+financial | accountant | openverse: 20
+financial | office desk calculator | openverse: 7
+education | students classroom africa | openverse: 12
+education | driving lesson | openverse: 0
+education | driving lesson | commons: 12
+agriculture | farm zimbabwe | openverse: 0
+agriculture | farm zimbabwe | commons: 8
+agriculture | tractor farm africa | openverse: 0
+agriculture | tractor farm africa | commons: 14
+retail | hardware store | openverse: 17
+retail | grocery store vegetables | openverse: 10
+entertainment | wedding decoration | openverse: 18
+entertainment | dj party | openverse: 16
+media | photographer camera | openverse: 20
+media | video production | openverse: 19
+logistics | delivery truck | openverse: 20
+logistics | courier motorcycle | openverse: 0
+logistics | courier motorcycle | commons: 8
+freelancers | welder | openverse: 18
+freelancers | sewing machine tailor | openverse: 2
+freelancers | sewing machine tailor | commons: 7
