@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Nav from "./components/Nav.jsx";
+import DemoBanner from "./components/DemoBanner.jsx";
 import Footer from "./components/Footer.jsx";
 import Home from "./pages/Home.jsx";
 import Search from "./pages/Search.jsx";
@@ -30,6 +31,7 @@ export default function App() {
         Skip to content
       </a>
       <ScrollManager />
+      <DemoBanner />
       <Nav />
       <main id="main">
         <Routes>

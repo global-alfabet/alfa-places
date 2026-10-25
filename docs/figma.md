@@ -33,11 +33,22 @@ again only for screens not covered below.
 Type in the design: Inter. Headlines 48px bold, section headings 32px semibold, card titles 20px, body 14 to 16px,
 category labels 12px uppercase.
 
-## Not built yet
+## Business profile and search results
 
-The design shows star ratings, "verified" counts, "Promoted" tags, pricing plans, messages, reviews and business
-dashboards. These need real listings and the Global Alfabet Account. Until then the listing rules in CLAUDE.md apply:
-no invented ratings, reviews or badges.
+Built from the Business Profile (`401:1386`) and Search Results (`401:2206`) desktop screens, in the shared look:
+
+- **Business page:** cover photo with badges, rating, name, tagline, Share and Save; About, Services cards, photo
+  gallery and Customer reviews on the left; a sticky column with price from, the main action and Send a message,
+  contact details and hours, a location map and Quick info.
+- **Search:** filters on the left (category, type of business, where and distance, minimum rating, price range,
+  open now and more), wide result cards in the middle with pages of 8, and a map of the results on the right.
+
+![Business profile (desktop)](figma/business-profile-desktop.png)
+![Search results (desktop)](figma/search-results-desktop.png)
+
+Ratings, reviews, Verified, Founding partner and Featured badges show on the fictional example listings in test
+mode. Real listings get them only when they are real: reviews arrive with the Global Alfabet Account, and badges are
+granted by Julius.
 
 ## Screens in the file
 
@@ -50,4 +61,4 @@ Mobile: Super admin dashboard `401:321`, Business approvals `401:498`, Edit prof
 Search results `401:6542`, Directory home `401:6767`, Register business `401:7014`, Login `401:7099`, Messages
 `401:7160`.
 
-Only Directory home (desktop) has been read so far.
+Read so far: Directory home, Business profile and Search results (desktop).

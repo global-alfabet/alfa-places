@@ -12,7 +12,7 @@ const PAYMENTS = ["Cash", "Cards", "EcoCash", "InnBucks", "OneMoney", "Bank tran
 export default function AddBusiness() {
   usePageTitle(
     "Add your business",
-    "List your business on Alfa Finda so customers and travellers in Zimbabwe can find you.",
+    "List your business or freelance work on Alfa Finda so customers and travellers in Zimbabwe can find you.",
   );
   const [state, setState] = useState("idle");
   const [category, setCategory] = useState("");
@@ -74,6 +74,17 @@ export default function AddBusiness() {
           <label className="field">
             <span>Business name</span>
             <input name="businessName" required autoComplete="organization" />
+          </label>
+          <label className="field">
+            <span>What kind of business is it?</span>
+            <select name="kind" required defaultValue="">
+              <option value="" disabled>
+                Choose one
+              </option>
+              <option value="company">A registered company</option>
+              <option value="small">A small business or sole trader</option>
+              <option value="freelancer">A freelancer (I work for myself)</option>
+            </select>
           </label>
           <div className="row">
             <label className="field">

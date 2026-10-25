@@ -103,11 +103,32 @@ export const categories = [
     ],
   },
   {
+    id: "plumbing",
+    name: "Plumbers",
+    short: "Plumbing",
+    icon: "wrench",
+    words: ["plumber", "plumbers", "plumbing", "geyser", "geysers", "burst pipe", "leak", "leaks", "borehole", "toilet"],
+  },
+  {
+    id: "electrical",
+    name: "Electricians",
+    short: "Electrical",
+    icon: "bolt",
+    words: ["electrician", "electricians", "electrical", "wiring", "rewiring", "lights", "fault", "power"],
+  },
+  {
+    id: "solar",
+    name: "Solar and backup power",
+    short: "Solar",
+    icon: "sun",
+    words: ["solar", "solar panels", "inverter", "inverters", "batteries", "backup power", "load shedding"],
+  },
+  {
     id: "home-services",
     name: "Home services",
     short: "Home",
     icon: "home",
-    words: ["plumber", "plumbers", "electrician", "electricians", "handyman", "maintenance"],
+    words: ["handyman", "maintenance", "painter", "painting", "carpenter", "carpentry", "gardener", "gardening"],
   },
   {
     id: "construction",
