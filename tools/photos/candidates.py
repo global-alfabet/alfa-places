@@ -22,27 +22,60 @@ def get(url):
 
 font = ImageFont.load_default(size=18)
 found = {}
+LOG = []
+
+
+def unsplash(q):
+    url = "https://unsplash.com/napi/search/photos?" + urllib.parse.urlencode({"query": q, "per_page": 20, "orientation": "landscape"})
+    data = json.loads(get(url))
+    out = []
+    for p in data.get("results", []):
+        raw = p["urls"]["raw"]
+        if p.get("premium") or p.get("plus") or "plus.unsplash.com" in raw:
+            continue
+        out.append({
+            "src": "unsplash", "id": p["id"], "q": q, "alt": p.get("alt_description") or p.get("description") or "",
+            "w": p["width"], "h": p["height"], "url": raw.split("?")[0], "small": p["urls"]["small"],
+            "author": p["user"]["name"], "license": "Unsplash License", "page": p["links"]["html"],
+        })
+    return out
+
+
+def openverse(q):
+    url = "https://api.openverse.org/v1/images/?" + urllib.parse.urlencode(
+        {"q": q, "license": "cc0,by,by-sa", "page_size": 20, "mature": "false", "aspect_ratio": "wide"})
+    data = json.loads(get(url))
+    out = []
+    for p in data.get("results", []):
+        if (p.get("width") or 0) < 1200:
+            continue
+        lic = f"CC {p['license'].upper()} {p.get('license_version') or ''}".strip().replace("CC CC0", "CC0")
+        out.append({
+            "src": p.get("source"), "id": p["id"], "q": q, "alt": p.get("title") or "", "w": p.get("width"),
+            "h": p.get("height"), "url": p["url"], "small": p.get("thumbnail") or p["url"],
+            "author": p.get("creator") or "", "license": lic, "page": p.get("foreign_landing_url") or "",
+        })
+    return out
 for cat, queries in QUERIES.items():
     seen, items = set(), []
     for q in queries:
-        url = "https://unsplash.com/napi/search/photos?" + urllib.parse.urlencode({"query": q, "per_page": 20, "orientation": "landscape"})
-        try:
-            data = json.loads(get(url))
-        except Exception as e:  # noqa: BLE001
-            print("search failed", cat, q, e)
-            continue
+        got = []
+        for fn in (unsplash, openverse):
+            try:
+                got = fn(q)
+                LOG.append(f"{cat} | {q} | {fn.__name__}: {len(got)}")
+            except Exception as e:  # noqa: BLE001
+                LOG.append(f"{cat} | {q} | {fn.__name__} failed: {e}")
+                got = []
+            if got:
+                break
         n = 0
-        for p in data.get("results", []):
-            raw = p["urls"]["raw"]
-            if p.get("premium") or p.get("plus") or "plus.unsplash.com" in raw or p["id"] in seen:
+        for it in got:
+            if it["id"] in seen:
                 continue
-            seen.add(p["id"])
+            seen.add(it["id"])
+            items.append(it)
             n += 1
-            items.append({
-                "id": p["id"], "q": q, "alt": p.get("alt_description") or p.get("description") or "",
-                "w": p["width"], "h": p["height"], "raw": raw.split("?")[0], "small": p["urls"]["small"],
-                "author": p["user"]["name"], "username": p["user"]["username"], "page": p["links"]["html"],
-            })
             if n >= 8:
                 break
         time.sleep(1.2)
@@ -60,9 +93,10 @@ for cat, queries in QUERIES.items():
             l, t = (im.width - tw) // 2, (im.height - th) // 2
             sheet.paste(im.crop((l, t, l + tw, t + th)), (x, y))
         except Exception as e:  # noqa: BLE001
-            print("thumb failed", it["id"], e)
+            LOG.append(f"thumb failed {it['id']}: {e}")
         d.text((x + 6, y + th + 4), f"{i}", fill="black", font=font)
     sheet.save(os.path.join(OUT, f"{cat}.jpg"), quality=72)
     print(cat, len(items))
 
 json.dump(found, open(os.path.join(OUT, "candidates.json"), "w"), indent=1)
+open(os.path.join(OUT, "log.txt"), "w").write("\n".join(LOG))
