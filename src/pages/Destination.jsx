@@ -4,7 +4,7 @@ import { businesses } from "../content/businesses.js";
 import { categoryById } from "../content/categories.js";
 import DestinationArt, { PhotoCredit } from "../components/DestinationArt.jsx";
 import Icon from "../components/Icon.jsx";
-import BusinessCard from "../components/BusinessCard.jsx";
+import ListingCard from "../components/ListingCard.jsx";
 import DestinationCard from "../components/DestinationCard.jsx";
 import NotFound from "./NotFound.jsx";
 import { useTrip } from "../lib/trip.js";
@@ -124,11 +124,11 @@ export default function Destination() {
           <section className="section-block">
             <h2>For your trip</h2>
             <p className="muted">
-              {d.nearbyCategories.map((c) => categoryById[c]?.short).join(", ")}. Example listings for now.
+              {d.nearbyCategories.map((c) => categoryById[c]?.short).join(", ")}.
             </p>
-            <div className="biz-list">
-              {forTrip.map((b) => (
-                <BusinessCard key={b.id} business={b} />
+            <div className="listing-grid">
+              {forTrip.slice(0, 4).map((b) => (
+                <ListingCard key={b.id} business={b} />
               ))}
             </div>
           </section>

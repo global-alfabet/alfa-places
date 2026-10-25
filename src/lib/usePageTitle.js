@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 
-const DEFAULT_TITLE = "Alfa Finda · Find places worth knowing in Zimbabwe";
+const DEFAULT_TITLE = "Alfa Finda · Find services, businesses and places in Zimbabwe";
 const DEFAULT_DESCRIPTION =
-  "Find businesses, attractions and places to visit across Zimbabwe, plan a trip, and list your business on Alfa Finda.";
+  "Find plumbers, electricians, solar installers, salons, clinics and places to visit across Zimbabwe, and list your business on Alfa Finda.";
 
 export function usePageTitle(title, description) {
   useEffect(() => {

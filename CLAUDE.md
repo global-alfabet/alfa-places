@@ -7,10 +7,14 @@ Sign-in, reviews and business dashboards arrive later with the shared Global Alf
 ## Layout
 ```
 src/config.js               contact details and links (edit content here, not in components)
-src/content/businesses.js   business listings. Today: labelled EXAMPLES only (see rules)
+src/content/businesses.js   real business listings (from the Add your business form)
+src/content/examples.js     fictional example businesses for test mode (site.demo). Delete at launch
+src/content/photos.js       free-licensed photos used by example listings, with credits
 src/content/categories.js   categories (+ the words people search with), towns, provinces
 src/content/destinations.js places to visit: real places, keep every fact accurate
-src/lib/search.js           plain-language search ("vets in Harare" → category + town)
+src/lib/search.js           plain-language search ("vets in Harare" → category + town), filters, sorting, distance
+src/lib/hours.js            opening hours and "Open now" in Zimbabwe time
+src/components/BusinessMap.jsx  Leaflet map (lazy-loaded) for search results and business pages
 src/lib/planner.js          trip planner: picks places near each other and builds the days
 src/lib/trip.js             places a visitor saved, kept in their browser only
 src/components/Scene.jsx    drawn illustrations of each destination, shown when its photo is missing or fails to load
@@ -32,18 +36,25 @@ public/                     logos from the brand kit (github.com/global-alfabet/
   `--accent-soft` for tints. No new colours.
 - Product names are always written in full: Alfa Finda, Alfa Maps, Alfa Shop, Global Alfabet Account.
 - Listings must be honest:
-  - Example listings have `example: true`, are labelled "Example" everywhere, and never show contact details,
-    ratings or reviews.
+  - Test mode (`demo: true` in src/config.js) adds the fictional businesses in src/content/examples.js so every feature
+    can be tested: badges, sample ratings and reviews, hours, maps and photos. Every example is labelled "Example",
+    the site shows a test banner, and example contact details are placeholders that reach nobody (no real-looking
+    numbers: use `+263 00 000 0000` and `.example` emails). Set `demo: false` at launch to hide them all.
   - Real listings come from the "Add your business" form after Julius approves them. Only publish what the business sent.
-  - Never invent ratings, reviews, phone numbers, addresses or "verified" badges.
-- Photos must be free-licensed (Wikimedia Commons: CC0, CC BY, CC BY-SA) or licensed by Julius (Adobe Stock). Never
-  use a photo copied from another website. Keep each photo's author, licence and source in `destinations.js`: the
-  destination page shows the credit and `/credits` lists them all.
+  - Never invent ratings, reviews, phone numbers, addresses or badges for a real listing. Verified and Founding partner
+    badges on real listings only when Julius grants them.
+  - Business kinds: `company` (registered company, can be Verified), `small` (small business or sole trader),
+    `freelancer` (works for themselves).
+- Photos must be free-licensed (CC0, CC BY, CC BY-SA, via Wikimedia Commons or Openverse; or the Unsplash License) or
+  licensed by Julius (Adobe Stock). Never use a photo copied from another website. Keep each photo's author, licence
+  and source with it (`destinations.js`, `photos.js`): `/credits` lists them all. Stock photos on example listings only
+  show the kind of work; never present them as a real business's own photos.
 - Destination facts must be true and checkable. Don't add prices or opening times that change; link to official
   sources instead.
 - Copy: plain, specific, short sentences. Say "places to visit", "businesses", "plan a trip".
 - Forms are Netlify Forms. Any field change goes in both `src/pages/AddBusiness.jsx` and the hidden form in `index.html`.
-- Browser storage is only for the visitor's saved places. Wrap every read and write (see `src/lib/storage.js`).
+- Browser storage is only for the visitor's saved places and businesses. Wrap every read and write (see
+  `src/lib/storage.js`). Never put the visitor's location in the address bar.
 - Check layout at 1440px and 390px wide. No horizontal scrolling on phones.
 - Never commit secrets. This site has none and needs none.
 - Work on a branch and open a pull request. Julius approves every merge; `main` deploys to Netlify.
@@ -53,4 +64,6 @@ public/                     logos from the brand kit (github.com/global-alfabet/
 Take the details from the Netlify form submission and add an entry to `src/content/businesses.js` with
 `example: false`, plus `contact: { phone, whatsapp, email, website, address, map: [lat, lng] }` (`map` adds a Get directions link). If the business sends a logo, save it
 as `public/logos/<id>.svg` (or `.png`, square) and add `logo: "/logos/<id>.svg"`; otherwise its category icon shows. The business page shows contact
-details only for real listings. When there are enough real ones, delete the examples and `ExampleNote`.
+details only for real listings. Add `kind`, and `tagline`, `services`, `hours`, `priceFrom` and `photos` when the
+business sends them. When there are enough real ones, set `demo: false`, then delete examples.js (and its import
+in businesses.js) and the example photos in photos.js and public/photos/examples.
