@@ -27,8 +27,9 @@ public/                     logos from the brand kit (github.com/global-alfabet/
 
 ## Rules
 - Design language: the Global Alfabet look, based on business.apple.com. White and #f5f5f7 sections, Inter, large
-  confident headings, pill buttons, rounded 28px cards. Alfa Finda coral is the one accent: `--accent` for fills and
-  icons, `--accent-strong` for text and buttons. No new colours.
+  confident headings, pill buttons, rounded 28px cards. Alfa Finda Compass Blue (`#005BBF`, from the Figma design:
+  see docs/figma.md) is the one accent: `--accent` for fills and icons, `--accent-strong` for text and buttons,
+  `--accent-soft` for tints. No new colours.
 - Product names are always written in full: Alfa Finda, Alfa Maps, Alfa Shop, Global Alfabet Account.
 - Listings must be honest:
   - Example listings have `example: true`, are labelled "Example" everywhere, and never show contact details,
