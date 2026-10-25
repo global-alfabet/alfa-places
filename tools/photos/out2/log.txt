@@ -1,0 +1,33 @@
+solar2 | solar panel | openverse: 20
+solar2 | photovoltaic installation | openverse: 0
+solar2 | photovoltaic installation | commons: 16
+solar2 | solar power africa | openverse: 0
+solar2 | solar power africa | commons: 6
+solar2 | solar panels house | openverse: 4
+solar2 | solar panels house | commons: 9
+beauty2 | barber shop | openverse: 20
+beauty2 | beauty salon | openverse: 12
+beauty2 | manicure nails | openverse: 16
+beauty2 | hairdresser | openverse: 18
+retail2 | vegetable market | openverse: 20
+retail2 | hardware tools shelves | openverse: 0
+retail2 | hardware tools shelves | commons: 2
+retail2 | grocery shop | openverse: 20
+retail2 | fruit stall | openverse: 13
+logistics2 | delivery van | openverse: 8
+logistics2 | warehouse boxes | openverse: 20
+logistics2 | truck road | openverse: 20
+logistics2 | parcel delivery | openverse: 1
+logistics2 | parcel delivery | commons: 7
+legal2 | law office | openverse: 20
+legal2 | meeting room table | openverse: 20
+legal2 | signing documents | openverse: 11
+driving2 | learner driver | openverse: 0
+driving2 | learner driver | commons: 11
+driving2 | car steering wheel | openverse: 20
+health2 | dentist chair | openverse: 10
+health2 | stethoscope doctor | openverse: 16
+plumbing2 | pipe wrench | openverse: 1
+plumbing2 | pipe wrench | commons: 12
+plumbing2 | bathroom faucet | openverse: 12
+plumbing2 | water pipes | openverse: 20
