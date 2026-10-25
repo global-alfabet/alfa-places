@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Nav from "./components/Nav.jsx";
 import DemoBanner from "./components/DemoBanner.jsx";
@@ -14,6 +14,13 @@ import AddBusiness from "./pages/AddBusiness.jsx";
 import Privacy from "./pages/Privacy.jsx";
 import Credits from "./pages/Credits.jsx";
 import NotFound from "./pages/NotFound.jsx";
+import DemoStore from "./components/DemoStore.jsx";
+import { site } from "./config.js";
+
+// The test dashboards load only when someone opens them.
+const SignIn = lazy(() => import("./pages/dashboard/SignIn.jsx"));
+const Owner = lazy(() => import("./pages/dashboard/Owner.jsx"));
+const Admin = lazy(() => import("./pages/dashboard/Admin.jsx"));
 
 // Scroll to the top on every new page (but not when only the search filters change).
 function ScrollManager() {
@@ -25,30 +32,37 @@ function ScrollManager() {
 }
 
 export default function App() {
+  const { pathname } = useLocation();
+  const inDashboard = /^\/(dashboard|admin)(\/|$)/.test(pathname);
   return (
-    <>
+    <DemoStore>
       <a className="skip-link" href="#main">
         Skip to content
       </a>
       <ScrollManager />
       <DemoBanner />
-      <Nav />
+      {!inDashboard && <Nav />}
       <main id="main">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/categories" element={<Categories />} />
-          <Route path="/business/:id" element={<Business />} />
-          <Route path="/destinations" element={<Destinations />} />
-          <Route path="/destinations/:slug" element={<Destination />} />
-          <Route path="/plan" element={<Plan />} />
-          <Route path="/add-your-business" element={<AddBusiness />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/credits" element={<Credits />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Suspense fallback={<div className="page-loading" aria-busy="true" />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/categories" element={<Categories />} />
+            <Route path="/business/:id" element={<Business />} />
+            <Route path="/destinations" element={<Destinations />} />
+            <Route path="/destinations/:slug" element={<Destination />} />
+            <Route path="/plan" element={<Plan />} />
+            <Route path="/add-your-business" element={<AddBusiness />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/credits" element={<Credits />} />
+            {site.demo && <Route path="/sign-in" element={<SignIn />} />}
+            {site.demo && <Route path="/dashboard/*" element={<Owner />} />}
+            {site.demo && <Route path="/admin/*" element={<Admin />} />}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
       </main>
-      <Footer />
-    </>
+      {!inDashboard && <Footer />}
+    </DemoStore>
   );
 }

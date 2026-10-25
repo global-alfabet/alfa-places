@@ -68,7 +68,15 @@ export default function Footer() {
           <span>
             Alfa Finda is a <a href={site.parent.url}>{site.parent.name}</a> product. © {new Date().getFullYear()}
           </span>
-          <span className="footer-note">Listings marked Example aren't real businesses.</span>
+          <span className="footer-note">
+            Listings marked Example aren't real businesses.
+            {site.demo && (
+              <>
+                {" "}
+                Test dashboards: <Link to="/dashboard">business</Link> and <Link to="/admin">admin</Link>.
+              </>
+            )}
+          </span>
         </div>
       </div>
     </footer>

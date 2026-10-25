@@ -50,6 +50,29 @@ Ratings, reviews, Verified, Founding partner and Featured badges show on the fic
 mode. Real listings get them only when they are real: reviews arrive with the Global Alfabet Account, and badges are
 granted by Julius.
 
+## Dashboards (test mode)
+
+Built from the Admin Dashboard (`401:1954`), Super Admin Dashboard (`401:669`), Business Directory Management
+(`401:1046`) and Content and Taxonomy Management (`401:3`) desktop screens, and the mobile Edit Profile (`401:5079`),
+Manage Reviews (`401:5554`), Messages (`401:7160`) and Login (`401:7099`) screens, in the shared look:
+
+- **Business dashboard** (`/dashboard`, the Figma "Admin Dashboard"): a light sidebar, stat cards, a weekly views
+  chart, recent activity, listing strength and badges; Listing (Edit Profile), Photos, Reviews with replies,
+  Messages and Settings.
+- **Admin dashboard** (`/admin`, the Figma "Super Admin Dashboard"): a dark sidebar, counts, new listings each week,
+  Needs attention, the directory table with Featured, Verified and Founding switches, approvals, reported reviews,
+  and the home page headline and categories.
+- **Sign-in** (`/sign-in`): the Login layout without passwords, until the Global Alfabet Account exists.
+
+Left out on purpose: Billing, Upgrade Plan and revenue figures (no plans or prices are decided), the AI review
+assistant, Google sign-in, and "Configure integrations". Green and red buttons use the site's accent and the
+`--danger` red that forms already use.
+
+![Admin dashboard (desktop)](figma/admin-dashboard-desktop.png)
+![Super admin dashboard (desktop)](figma/super-admin-dashboard-desktop.png)
+![Business directory management (desktop)](figma/directory-management-desktop.png)
+![Content and taxonomy management (desktop)](figma/content-management-desktop.png)
+
 ## Screens in the file
 
 Desktop: Content and taxonomy management `401:3`, Super admin dashboard `401:669`, Business directory management
@@ -61,4 +84,6 @@ Mobile: Super admin dashboard `401:321`, Business approvals `401:498`, Edit prof
 Search results `401:6542`, Directory home `401:6767`, Register business `401:7014`, Login `401:7099`, Messages
 `401:7160`.
 
-Read so far: Directory home, Business profile and Search results (desktop).
+Read so far: Directory home, Business profile, Search results, Admin dashboard, Super admin dashboard, Business
+directory management and Content and taxonomy management (desktop); Edit profile, Manage reviews, Messages and
+Login (mobile).

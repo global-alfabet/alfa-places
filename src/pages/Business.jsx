@@ -1,6 +1,7 @@
 import { Suspense, lazy, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { businesses } from "../content/businesses.js";
+import { useDirectory, useListing, useStore, useThreads } from "../lib/store.js";
+import { site } from "../config.js";
 import { categoryById } from "../content/categories.js";
 import { destinations } from "../content/destinations.js";
 import { allPhotos, photos, photoUrl } from "../content/photos.js";
@@ -37,13 +38,16 @@ function enquiry(b) {
 
 export default function Business() {
   const { id } = useParams();
-  const b = businesses.find((x) => x.id === id);
+  const b = useListing(id);
+  const businesses = useDirectory();
+  const { dispatch } = useStore();
+  const [threads, setThreads] = useThreads(b);
   usePageTitle(b?.name, b?.tagline || b?.description);
   const { has, toggle } = useSavedBusinesses();
   const [gallery, setGallery] = useState(-1);
   const [demoAction, setDemoAction] = useState("");
   const [writing, setWriting] = useState(false);
-  const [myReviews, setMyReviews] = useState([]);
+  const [sent, setSent] = useState(false);
   const [shared, setShared] = useState(false);
   const [allReviews, setAllReviews] = useState(false);
 
@@ -56,14 +60,14 @@ export default function Business() {
       .sort((p, q) => p.d - q.d)
       .slice(0, 4)
       .map((p) => p.x);
-  }, [b]);
+  }, [b, businesses]);
 
   if (!b) return <NotFound />;
   const c = categoryById[b.category];
   const status = openStatus(b.hours);
   const pics = allPhotos(b);
   const nearby = destinations.filter((d) => d.region === b.province || d.location.includes(b.city)).slice(0, 2);
-  const reviews = [...myReviews, ...(b.reviews || [])];
+  const reviews = b.reviews || [];
   const shownReviews = allReviews ? reviews : reviews.slice(0, 3);
   const services = (b.services || []).map((s) => (typeof s === "string" ? { name: s } : s));
   const contact = b.example
@@ -102,6 +106,12 @@ export default function Business() {
       <Link className="back" to={`/search?category=${b.category}`}>
         <Icon name="back" size={16} /> {c?.name}
       </Link>
+      {b.hidden && (
+        <p className="example-note">
+          <Icon name="eye" size={18} />
+          <span>This listing is hidden, so it's out of search. You can see it because you're testing the dashboards.</span>
+        </p>
+      )}
 
       <header className={`biz-cover${photos[b.photos?.banner] ? "" : " plain"}`}>
         <BusinessPhoto business={b} width={1600} eager icon={96} />
@@ -221,7 +231,7 @@ export default function Business() {
                 </div>
               </div>
             ) : (
-              !myReviews.length && <p className="muted">No reviews yet. Be the first to write one.</p>
+              !reviews.length && <p className="muted">No reviews yet. Be the first to write one.</p>
             )}
             {shownReviews.length > 0 && (
               <ul className="reviews">
@@ -233,13 +243,21 @@ export default function Business() {
                       </span>
                       <div>
                         <strong>{r.name}</strong>
-                        <p className="meta">{r.mine ? "Just now, on this device only" : timeAgo(r.date)}</p>
+                        <p className="meta">{r.mine ? "Just now, until you reload" : timeAgo(r.date)}</p>
                       </div>
                       <span className="review-stars" aria-label={`${r.rating} out of 5`}>
                         <Stars rating={r.rating} size={16} />
                       </span>
                     </div>
                     <p className="review-text">“{r.text}”</p>
+                    {r.reply && (
+                      <div className="owner-reply">
+                        <p className="owner-reply-head">
+                          <strong>Reply from {b.name}</strong>
+                        </p>
+                        <p>{r.reply.text}</p>
+                      </div>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -344,7 +362,15 @@ export default function Business() {
               </details>
             )}
             {b.example && (
-              <p className="note">Example listing: the buttons show what would happen, and the contact details reach nobody.</p>
+              <p className="note">
+                Example listing: messages go to its test inbox, and the contact details reach nobody.
+                {site.demo && (
+                  <>
+                    {" "}
+                    <Link to={`/dashboard?business=${b.id}`}>Open its business dashboard</Link>.
+                  </>
+                )}
+              </p>
             )}
           </section>
 
@@ -487,16 +513,59 @@ export default function Business() {
         )}
       </Modal>
 
-      <Modal open={!!demoAction} onClose={() => setDemoAction("")} title={demoAction}>
-        <p>
-          {b.example
-            ? "This is an example listing, so nothing is sent. On a real listing this opens WhatsApp with this message ready to send:"
-            : "This business hasn't added WhatsApp yet. Call or email them instead."}
-        </p>
-        {b.example && <blockquote className="message-preview">{enquiry(b)}</blockquote>}
-        <button className="btn" onClick={() => setDemoAction("")}>
-          OK
-        </button>
+      <Modal
+        open={!!demoAction}
+        onClose={() => {
+          setDemoAction("");
+          setSent(false);
+        }}
+        title={demoAction}
+      >
+        {!b.example ? (
+          <>
+            <p>This business hasn't added WhatsApp yet. Call or email them instead.</p>
+            <button className="btn" onClick={() => setDemoAction("")}>
+              OK
+            </button>
+          </>
+        ) : sent ? (
+          <div className="form">
+            <p>
+              <strong>Sent to the test inbox.</strong> Nobody receives it: this is an example listing. Open its business
+              dashboard to read it and reply.
+            </p>
+            <div className="form-actions">
+              <Link className="btn" to={`/dashboard/messages?business=${b.id}`}>
+                Open the inbox
+              </Link>
+              <button
+                className="btn btn-secondary"
+                onClick={() => {
+                  setDemoAction("");
+                  setSent(false);
+                }}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        ) : (
+          <MessageForm
+            business={b}
+            onSend={({ name, text }) => {
+              const thread = {
+                id: `${b.id}-m${Date.now()}`,
+                name,
+                unread: true,
+                starred: false,
+                archived: false,
+                messages: [{ from: "customer", text, at: new Date().toISOString() }],
+              };
+              setThreads([thread, ...threads], { business: b.id, icon: "chat", title: `Message from ${name}`, text });
+              setSent(true);
+            }}
+          />
+        )}
       </Modal>
 
       <ReviewForm
@@ -504,7 +573,12 @@ export default function Business() {
         business={b}
         onClose={() => setWriting(false)}
         onAdd={(r) => {
-          setMyReviews((list) => [{ ...r, mine: true }, ...list]);
+          dispatch({
+            type: "review",
+            id: b.id,
+            review: { ...r, mine: true, id: `${b.id}-mine-${Date.now()}` },
+            log: { business: b.id, icon: "star", title: `${r.name} left ${r.rating} ${r.rating === 1 ? "star" : "stars"}`, text: r.text },
+          });
           setWriting(false);
         }}
       />
@@ -551,11 +625,43 @@ function ReviewForm({ open, onClose, onAdd, business: b }) {
           <span>Your review</span>
           <textarea value={text} onChange={(e) => setText(e.target.value)} rows={4} required maxLength={600} />
         </label>
-        <p className="note">Test version: your review shows on this page until you leave it, and isn't saved anywhere.</p>
+        <p className="note">
+          Test version: your review shows on this listing and its dashboard until you reload, and isn't saved anywhere.
+        </p>
         <button className="btn" type="submit" disabled={!rating || !text.trim()}>
           Post review
         </button>
       </form>
     </Modal>
+  );
+}
+
+// On an example listing, a message goes to the listing's test inbox (the business dashboard), not to WhatsApp.
+function MessageForm({ business: b, onSend }) {
+  const [name, setName] = useState("");
+  const [text, setText] = useState(enquiry(b));
+  return (
+    <form
+      className="form"
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (text.trim()) onSend({ name: name.trim() || "You", text: text.trim() });
+      }}
+    >
+      <p className="muted">
+        On a real listing this opens WhatsApp with your message ready to send. Here it goes to the listing's test inbox.
+      </p>
+      <label className="field">
+        <span>Your name (optional)</span>
+        <input value={name} onChange={(e) => setName(e.target.value)} maxLength={40} />
+      </label>
+      <label className="field">
+        <span>Message</span>
+        <textarea value={text} onChange={(e) => setText(e.target.value)} rows={4} required maxLength={600} />
+      </label>
+      <button className="btn" type="submit" disabled={!text.trim()}>
+        Send to the test inbox
+      </button>
+    </form>
   );
 }

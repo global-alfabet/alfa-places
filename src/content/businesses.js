@@ -1,6 +1,7 @@
 // Business listings. Real ones (example: false) come from the "Add your business" form after Julius approves them,
 // and show their contact details. In test mode (site.demo in config.js) the fictional examples in examples.js are
-// added after them. Those are labelled "Example" everywhere; delete examples.js and the import below at launch.
+// added after them. Those are labelled "Example" everywhere; delete examples.js, demo-dashboard.js and the imports
+// below at launch.
 //
 // Fields every listing can have: kind ("company", "small" or "freelancer"), verified and founding (badges Julius
 // grants after checking a business), tagline, services (strings or { name, text }), tags, priceFrom, priceRange,
@@ -9,6 +10,7 @@
 import { site } from "../config.js";
 import { examples } from "./examples.js";
 import { withPhotos } from "./photos.js";
+import { withSampleReviews } from "./demo-dashboard.js";
 
 const real = [
   {
@@ -110,4 +112,7 @@ const real = [
   },
 ];
 
-export const businesses = [...real, ...(site.demo ? withPhotos(examples).map((b) => ({ ...b, example: true })) : [])];
+export const businesses = [
+  ...real,
+  ...(site.demo ? withPhotos(examples).map((b, i) => ({ ...withSampleReviews(b, i), example: true })) : []),
+];

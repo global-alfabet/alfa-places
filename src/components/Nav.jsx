@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import Icon from "./Icon.jsx";
 import { asset } from "../lib/asset.js";
+import { site } from "../config.js";
 
 const links = [
   { to: "/destinations", label: "Places to visit" },
@@ -33,6 +34,11 @@ export default function Nav() {
             <Icon name="search" size={17} />
           </NavLink>
         </nav>
+        {site.demo && (
+          <NavLink to="/sign-in" className="nav-link nav-signin">
+            Sign in
+          </NavLink>
+        )}
         <Link to="/add-your-business" className="btn btn-small nav-cta">
           Add your business
         </Link>
@@ -53,6 +59,7 @@ export default function Nav() {
           </Link>
         ))}
         <Link to="/add-your-business">Add your business</Link>
+        {site.demo && <Link to="/sign-in">Sign in (test dashboards)</Link>}
       </nav>
     </header>
   );
