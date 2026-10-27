@@ -11,7 +11,7 @@ import { useDirectory, useStore } from "../../lib/store.js";
 import { pendingSubmissions, verifyQueue } from "../../lib/admin.js";
 import { dayMonth, shortTime } from "../../lib/sample.js";
 
-const REJECT = ["Details are missing", "Not a real business", "Already listed", "Outside Zimbabwe"];
+const REJECT = ["Details are missing", "Not a real business", "Already listed", "Outside the areas we list"];
 
 // Figma "Business Approvals": new businesses from the Add your business form, and Verified requests.
 export default function AdminApprovals() {

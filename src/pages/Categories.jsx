@@ -7,7 +7,7 @@ import { usePageTitle } from "../lib/usePageTitle.js";
 export default function Categories() {
   usePageTitle(
     "Businesses",
-    "Browse businesses in Zimbabwe by category: food, places to stay, tours, vets, mechanics and more.",
+    "Browse businesses by category: food, places to stay, tours, vets, mechanics and more.",
   );
   return (
     <div className="container page">

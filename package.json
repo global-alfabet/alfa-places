@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Alfa Finda (finda.globalalfabet.com): businesses, attractions and places to visit in Zimbabwe",
+  "description": "Alfa Finda (finda.globalalfabet.com): businesses, attractions and places to visit, in one search",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

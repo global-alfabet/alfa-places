@@ -1,6 +1,8 @@
 # finda.globalalfabet.com: guide for Claude Code
 
-Alfa Finda is a Global Alfabet product: businesses, attractions and places to visit across Zimbabwe, in one search.
+Alfa Finda is a Global Alfabet product: businesses, attractions and places to visit, in one search. Its listings and
+destinations are in Zimbabwe today. Global Alfabet is a global company: page copy, titles and examples don't name a
+country or city (listings and destinations are data, and keep their real towns).
 Version 1 is frontend only (React 18 + Vite + react-router, plain JavaScript). No server, no database, no accounts.
 Sign-in, reviews and business dashboards arrive later with the shared Global Alfabet Account (test mode previews
 them with example data).

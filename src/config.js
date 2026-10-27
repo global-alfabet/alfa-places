@@ -1,7 +1,6 @@
 // Alfa Finda details used across the site. Edit here, not in the pages.
 export const site = {
   name: "Alfa Finda",
-  country: "Zimbabwe",
   url: "https://finda.globalalfabet.com",
   email: "hello@globalalfabet.com",
   phone: "+263 772 906 967",

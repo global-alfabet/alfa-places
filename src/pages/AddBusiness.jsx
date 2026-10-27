@@ -12,7 +12,7 @@ const PAYMENTS = ["Cash", "Cards", "EcoCash", "InnBucks", "OneMoney", "Bank tran
 export default function AddBusiness() {
   usePageTitle(
     "Add your business",
-    "List your business or freelance work on Alfa Finda so customers and travellers in Zimbabwe can find you.",
+    "List your business or freelance work on Alfa Finda so customers and travellers can find you.",
   );
   const [state, setState] = useState("idle");
   const [category, setCategory] = useState("");

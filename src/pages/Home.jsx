@@ -14,7 +14,7 @@ import { site } from "../config.js";
 
 // Section order follows the Alfa Finda Figma design (docs/figma.md): search, categories, featured partners,
 // recently added, then places to visit and a banner for business owners.
-const HINTS = ["Plumbers in Harare", "Solar installers", "Electricians in Bulawayo", "Braids", "Vets", "Waterfalls"];
+const HINTS = ["Plumbers", "Solar installers", "Electricians", "Braids", "Vets", "Waterfalls"];
 const FEATURED_PLACES = ["victoria-falls", "great-zimbabwe", "mana-pools"];
 
 export default function Home() {
@@ -156,7 +156,7 @@ export default function Home() {
           <div className="section-head left">
             <div>
               <p className="eyebrow">Places to visit</p>
-              <h2>See Zimbabwe.</h2>
+              <h2>Places worth the trip.</h2>
             </div>
             <Link className="text-link" to="/destinations">
               All places <Icon name="chevron" size={16} />

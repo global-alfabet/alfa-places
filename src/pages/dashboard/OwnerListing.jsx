@@ -332,7 +332,7 @@ export default function OwnerListing({ b }) {
           <input
             value={form.serviceArea}
             onChange={set("serviceArea")}
-            placeholder="For example: Harare and Chitungwiza"
+            placeholder="For example: the city centre and nearby suburbs"
             maxLength={80}
           />
         </label>
