@@ -1,9 +1,9 @@
 # Alfa Finda
 
-**Find places worth knowing.** Businesses, attractions and places to visit across Zimbabwe, by
+**Find places worth knowing.** Businesses, attractions and places to visit, by
 [Global Alfabet](https://www.globalalfabet.com). Lives at finda.globalalfabet.com.
 
-- Search in plain language: "vets in Harare", "hotels in Victoria Falls", "waterfalls".
+- Search in plain language: "vets", "hotels", "waterfalls", or a kind of business with a town.
 - Browse businesses by category, and places to visit with what to do and when to go.
 - Plan a trip: pick interests, days and budget; get a day-by-day route that doesn't zig-zag across the country.
   Plans are shareable links.

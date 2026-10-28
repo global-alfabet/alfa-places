@@ -6,7 +6,7 @@ import { usePageTitle } from "../lib/usePageTitle.js";
 export default function Destinations() {
   usePageTitle(
     "Places to visit",
-    "Waterfalls, national parks, ancient stone cities and mountains: places to visit in Zimbabwe.",
+    "Waterfalls, national parks, ancient stone cities and mountains: places worth the trip.",
   );
   const [only, setOnly] = useState("");
   const list = only ? destinations.filter((d) => d.interests.includes(only)) : destinations;
@@ -15,7 +15,7 @@ export default function Destinations() {
     <div className="container page">
       <div className="page-head">
         <p className="eyebrow">Places to visit</p>
-        <h1>See Zimbabwe.</h1>
+        <h1>Places worth the trip.</h1>
         <p className="lead">Waterfalls, wildlife, granite hills, an ancient stone city and cool mountains.</p>
       </div>
       <div className="chip-filter" role="group" aria-label="Filter by interest">

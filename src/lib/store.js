@@ -10,7 +10,7 @@ export const StoreContext = createContext(null);
 
 export const HOME_DEFAULTS = {
   headline: "Find the right service, near you.",
-  lead: "Plumbers, electricians, solar installers, salons, clinics and places to go across Zimbabwe, in one search.",
+  lead: "Plumbers, electricians, solar installers, salons, clinics and places to go, in one search.",
   placeholder: "What do you need done?",
   categories: ["plumbing", "electrical", "solar", "restaurants", "beauty", "automotive", "health"],
 };

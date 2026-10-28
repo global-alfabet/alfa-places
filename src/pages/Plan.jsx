@@ -11,7 +11,7 @@ const bySlug = Object.fromEntries(destinations.map((d) => [d.slug, d]));
 
 // The choices live in the address (?i=wildlife,nature&d=5&b=Moderate&s=Harare), so a plan can be shared as a link.
 export default function Plan() {
-  usePageTitle("Plan a trip", "Pick your interests, days and budget, and get a day-by-day trip around Zimbabwe.");
+  usePageTitle("Plan a trip", "Pick your interests, days and budget, and get a day-by-day trip.");
   const [params, setParams] = useSearchParams();
   const trip = useTrip();
   const [copied, setCopied] = useState(false);
@@ -50,7 +50,7 @@ export default function Plan() {
     <div className="container page">
       <div className="page-head">
         <p className="eyebrow">Plan a trip</p>
-        <h1>Your trip around Zimbabwe.</h1>
+        <h1>Your trip, day by day.</h1>
         <p className="lead">Choose what you'd like to do. The plan updates as you go.</p>
       </div>
 

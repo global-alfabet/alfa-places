@@ -6,7 +6,7 @@ import { towns } from "../content/categories.js";
 // withTown adds the "where" field from the Figma home page: what you're looking for, then the town.
 export default function SearchBar({
   initial = "",
-  placeholder = "Try “vets in Harare” or “waterfalls”",
+  placeholder = "Try “vets” or “waterfalls”",
   size = "",
   autoFocus = false,
   withTown = false,

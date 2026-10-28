@@ -10,7 +10,6 @@ import { KINDS } from "../lib/kinds.js";
 import { SORTS, searchBusinesses, searchDestinations, describeSearch, parseQuery } from "../lib/search.js";
 import { townCentres } from "../lib/geo.js";
 import { usePageTitle } from "../lib/usePageTitle.js";
-import { site } from "../config.js";
 
 const BusinessMap = lazy(() => import("../components/BusinessMap.jsx"));
 
@@ -159,7 +158,7 @@ export default function Search() {
             <span className="sr-only">Town</span>
             <select value={near ? "__near" : town} onChange={(e) => (setNear(null), set("town", e.target.value === "__near" ? "" : e.target.value))}>
               {near && <option value="__near">Near my location</option>}
-              <option value="">All of {site.country}</option>
+              <option value="">All towns</option>
               {towns.map((t) => (
                 <option key={t}>{t}</option>
               ))}
