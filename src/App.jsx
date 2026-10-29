@@ -15,6 +15,7 @@ import Privacy from "./pages/Privacy.jsx";
 import Credits from "./pages/Credits.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import DemoStore from "./components/DemoStore.jsx";
+import CookieBanner from "./components/CookieBanner.jsx";
 import { site } from "./config.js";
 
 // The test dashboards load only when someone opens them.
@@ -63,6 +64,7 @@ export default function App() {
         </Suspense>
       </main>
       {!inDashboard && <Footer />}
+      <CookieBanner measurementId={site.analytics.ga4} policyHref="/privacy#cookies" />
     </DemoStore>
   );
 }

@@ -18,9 +18,10 @@
   </head>
   <body>
     <div id="root"></div>
-    <!-- Lets Netlify Forms detect the form at build time. Field names must match src/pages/AddBusiness.jsx -->
+    <!-- Lets Netlify Forms detect the form at build time. Field names must match src/pages/AddBusiness.jsx.
+         "subject" becomes the subject of our notification email; "source" says which form and website it came from. -->
     <form name="add-business" data-netlify="true" netlify-honeypot="bot-field" hidden>
-      <input name="businessName" /><input name="kind" /><input name="category" /><input name="otherCategory" /><input name="town" /><input
+      <input type="hidden" name="subject" /><input type="hidden" name="source" /><input name="businessName" /><input name="kind" /><input name="category" /><input name="otherCategory" /><input name="town" /><input
         name="address"
       /><textarea name="description"></textarea><textarea name="services"></textarea><input name="hours" /><input
         name="payments"

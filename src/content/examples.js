@@ -1659,7 +1659,7 @@ export const examples = [
     delivery: true,
     founded: 2018,
     team: "10 staff",
-    cta: "Order on WhatsApp",
+    cta: "Order now",
     added: "2026-10-11",
     keywords: ["grocer", "groceries", "vegetables", "butchery"],
   },

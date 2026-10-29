@@ -3,11 +3,16 @@ import { Link } from "react-router-dom";
 import { categories, towns } from "../content/categories.js";
 import { site } from "../config.js";
 import { submitNetlifyForm } from "../lib/forms.js";
+import { track } from "../lib/consent.js";
 import { usePageTitle } from "../lib/usePageTitle.js";
 import Icon from "../components/Icon.jsx";
 
 // Field names must match the hidden "add-business" form in index.html, or Netlify drops them.
 const PAYMENTS = ["Cash", "Cards", "EcoCash", "InnBucks", "OneMoney", "Bank transfer"];
+// Our notification email names the form and the website: Netlify uses the hidden "subject" field as its subject, and
+// lists "source" with the other fields.
+const SUBJECT = "New listing · Add your business form · finda.globalalfabet.com (Alfa Finda)";
+const SOURCE = "Add your business form on finda.globalalfabet.com";
 
 export default function AddBusiness() {
   usePageTitle(
@@ -22,9 +27,11 @@ export default function AddBusiness() {
     const form = e.currentTarget;
     const data = Object.fromEntries(new FormData(form));
     data.payments = new FormData(form).getAll("payments").join(", ");
+    if (data.businessName) data.subject = `${SUBJECT}: ${String(data.businessName).slice(0, 80)}`;
     setState("sending");
     try {
       await submitNetlifyForm("add-business", data);
+      track("generate_lead", { form: "add-business" });
       setState("sent");
       form.reset();
       window.scrollTo(0, 0);
@@ -63,6 +70,8 @@ export default function AddBusiness() {
 
       <form className="form" name="add-business" method="POST" onSubmit={submit}>
         <input type="hidden" name="form-name" value="add-business" />
+        <input type="hidden" name="subject" value={SUBJECT} />
+        <input type="hidden" name="source" value={SOURCE} />
         <p hidden>
           <label>
             Leave this empty <input name="bot-field" />

@@ -1,6 +1,8 @@
 [build]
   command = "npm ci && npm run check"
   publish = "dist"
+  # submission-created.mjs emails a confirmation to whoever adds a business (needs RESEND_API_KEY, see README.md)
+  functions = "netlify/functions"
 
 [build.environment]
   NODE_VERSION = "22"

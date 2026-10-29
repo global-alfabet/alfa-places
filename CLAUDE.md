@@ -64,6 +64,11 @@ public/                     logos from the brand kit (github.com/global-alfabet/
   sources instead.
 - Copy: plain, specific, short sentences. Say "places to visit", "businesses", "plan a trip".
 - Forms are Netlify Forms. Any field change goes in both `src/pages/AddBusiness.jsx` and the hidden form in `index.html`.
+  Keep the hidden `subject` and `source` fields (they name the form and website in our notification email);
+  `netlify/functions/submission-created.mjs` emails the sender a confirmation (needs RESEND_API_KEY in Netlify).
+- Analytics: Google Analytics 4 only after the visitor accepts, through `src/lib/consent.js` (the same file on every
+  Global Alfabet site; change it everywhere or nowhere). The ID goes in `analytics.ga4` in `src/config.js`. Never send
+  names, emails, phone numbers or the visitor's location in events.
 - Browser storage is only for the visitor's saved places and businesses. Wrap every read and write (see
   `src/lib/storage.js`). Never put the visitor's location in the address bar.
 - Check layout at 1440px and 390px wide. No horizontal scrolling on phones.
