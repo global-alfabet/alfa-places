@@ -23,7 +23,25 @@ npm run check    # lint + build
    build settings.
 2. **Domain management → Add a domain →** `finda.globalalfabet.com`, and make it the primary domain. The DNS is on
    Netlify, so it sets itself up.
-3. **Forms →** turn on email notifications for `add-business`, so new businesses reach you.
+3. **Forms →** turn on email notifications for `add-business`, so new businesses reach you. The email's subject
+   comes from the form's hidden `subject` field ("New listing · Add your business form · finda.globalalfabet.com
+   (Alfa Finda): <business name>"), so don't set a subject there. The hidden `source` field is listed with the others.
+4. **Confirmation emails →** `netlify/functions/submission-created.mjs` emails whoever adds a business to say we've
+   received it. It sends through [Resend](https://resend.com); add these in Site configuration → Environment
+   variables (scope Functions). Without `RESEND_API_KEY` nothing is sent.
+
+   | Variable | What |
+   | --- | --- |
+   | `RESEND_API_KEY` | A Resend API key. globalalfabet.com must be verified in Resend. |
+   | `MAIL_FROM` | Optional. Default `Global Alfabet <hello@globalalfabet.com>`. |
+   | `REPLY_TO` | Optional. Default `hello@globalalfabet.com`. |
+
+## Analytics, cookies and social links
+- Google Analytics 4 runs only after a visitor presses Accept on the cookie banner (`src/lib/consent.js`, the same
+  file on every Global Alfabet site). Paste the measurement ID (`G-…`) into `analytics.ga4` in `src/config.js`; while
+  it's empty there's no banner and nothing is measured. "Cookie settings" in the footer changes the answer.
+- The footer links to our social profiles from `social` in `src/config.js`. "#" is a placeholder until the real links
+  are in; an empty value hides that network.
 
 ### Moving from Alfa Places
 Alfa Finda was called Alfa Places and lived at places.globalalfabet.com. Keep `places.globalalfabet.com` on the

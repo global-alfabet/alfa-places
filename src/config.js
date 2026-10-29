@@ -7,6 +7,17 @@ export const site = {
   whatsapp: "263772906967", // digits only, used for wa.me links
   parent: { name: "Global Alfabet", url: "https://www.globalalfabet.com" },
   maps: "https://maps.globalalfabet.com",
+  // Google Analytics 4 measurement ID ("G-…"). Julius pastes it here. Empty: no analytics and no cookie banner.
+  // Analytics only runs after a visitor presses Accept (src/lib/consent.js).
+  analytics: { ga4: "" },
+  // Our social media profiles, shown in the footer. TODO: Julius sends the real links; "#" is a placeholder.
+  // Leave one empty ("") to hide it.
+  social: {
+    instagram: "#",
+    facebook: "#",
+    linkedin: "#",
+    youtube: "#",
+  },
   // Test mode. While true, the site shows a banner and the fictional example businesses in src/content/examples.js
   // (badges, sample ratings and reviews included). Set to false at launch: only real listings stay.
   demo: true,
