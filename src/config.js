@@ -10,13 +10,13 @@ export const site = {
   // Google Analytics 4 measurement ID ("G-…"). Julius pastes it here. Empty: no analytics and no cookie banner.
   // Analytics only runs after a visitor presses Accept (src/lib/consent.js).
   analytics: { ga4: "G-47R00SKKE8" },
-  // Our social media profiles, shown in the footer. TODO: Julius sends the real links; "#" is a placeholder.
+  // Our social media profiles, shown in the footer. LinkedIn is hidden until the account exists.
   // Leave one empty ("") to hide it.
   social: {
-    instagram: "#",
-    facebook: "#",
-    linkedin: "#",
-    youtube: "#",
+    instagram: "https://www.instagram.com/globalalfabet/",
+    facebook: "https://www.facebook.com/profile.php?id=100086531795259",
+    linkedin: "",
+    youtube: "https://www.youtube.com/@GlobalAlfabet",
   },
   // Test mode. While true, the site shows a banner and the fictional example businesses in src/content/examples.js
   // (badges, sample ratings and reviews included). Set to false at launch: only real listings stay.
