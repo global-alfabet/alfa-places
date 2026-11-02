@@ -15,10 +15,17 @@
   status = 301
   force = true
 
-# Single-page app: every address is handled by React
+# Every page is built as its own HTML file (scripts/prerender.js): /destinations is served from destinations.html
+# and /business/jetwash from business/jetwash.html. Any other address gets 404.html with a real 404 status, so
+# search engines don't index missing pages. The test dashboards have addresses of their own under /dashboard and
+# /admin, so those are sent to their page (with a noindex tag).
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
+  from = "/dashboard/*"
+  to = "/dashboard.html"
+  status = 200
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin.html"
   status = 200
 
 [[headers]]
