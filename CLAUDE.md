@@ -69,6 +69,9 @@ public/                     logos from the brand kit (github.com/global-alfabet/
 - Analytics: Google Analytics 4 only after the visitor accepts, through `src/lib/consent.js` (the same file on every
   Global Alfabet site; change it everywhere or nowhere). The ID goes in `analytics.ga4` in `src/config.js`. Never send
   names, emails, phone numbers or the visitor's location in events.
+- Visit counts: Cloudflare Web Analytics runs for every visitor, whatever they answer on the cookie banner, because it
+  sets no cookies and stores nothing in the browser (src/lib/webAnalytics.js, the same file on every Global Alfabet site).
+  The token goes in `analytics.cloudflare` in `src/config.js`. Don't add anything that sets cookies or identifiers to it.
 - Browser storage is only for the visitor's saved places and businesses. Wrap every read and write (see
   `src/lib/storage.js`). Never put the visitor's location in the address bar.
 - Check layout at 1440px and 390px wide. No horizontal scrolling on phones.
