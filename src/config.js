@@ -12,14 +12,14 @@ export const site = {
   analytics: {
     ga4: "G-47R00SKKE8",
     // Cloudflare Web Analytics token: counts every visit without cookies (src/lib/webAnalytics.js). Empty: off.
-    cloudflare: "",
+    cloudflare: "39246bebf1494531914459c105726428",
   },
-  // Our social media profiles, shown in the footer. LinkedIn is hidden until the account exists.
+  // Our social media profiles, shown in the footer.
   // Leave one empty ("") to hide it.
   social: {
     instagram: "https://www.instagram.com/globalalfabet/",
     facebook: "https://www.facebook.com/profile.php?id=100086531795259",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/company/global-alfabet/",
     youtube: "https://www.youtube.com/@GlobalAlfabet",
   },
   // Test mode. While true, the site shows a banner and the fictional example businesses in src/content/examples.js
