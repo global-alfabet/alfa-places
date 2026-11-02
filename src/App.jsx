@@ -16,6 +16,7 @@ import Credits from "./pages/Credits.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import DemoStore from "./components/DemoStore.jsx";
 import CookieBanner from "./components/CookieBanner.jsx";
+import Seo from "./components/Seo.jsx";
 import { site } from "./config.js";
 
 // The test dashboards load only when someone opens them.
@@ -41,6 +42,7 @@ export default function App() {
         Skip to content
       </a>
       <ScrollManager />
+      <Seo />
       <DemoBanner />
       {!inDashboard && <Nav />}
       <main id="main">

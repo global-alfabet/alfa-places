@@ -17,6 +17,8 @@ src/content/demo-dashboard.js  test-mode extras: owners, enquiries, sample revie
 src/lib/store.js            test-mode state shared by the public pages and the dashboards (in memory only)
 src/content/categories.js   categories (+ the words people search with), towns, provinces
 src/content/destinations.js places to visit: real places, keep every fact accurate
+src/lib/seo.js              title, description, canonical, share image and JSON-LD for every page; sitemap; llms.txt
+scripts/prerender.js        build step: writes each page as HTML (src/entry-server.jsx), 404.html, sitemap.xml, llms.txt
 src/lib/search.js           plain-language search ("vets in Harare" → category + town), filters, sorting, distance
 src/lib/hours.js            opening hours and "Open now" in Zimbabwe time
 src/components/BusinessMap.jsx  Leaflet map (lazy-loaded) for search results and business pages
@@ -71,6 +73,10 @@ public/                     logos from the brand kit (github.com/global-alfabet/
   names, emails, phone numbers or the visitor's location in events.
 - Browser storage is only for the visitor's saved places and businesses. Wrap every read and write (see
   `src/lib/storage.js`). Never put the visitor's location in the address bar.
+- SEO: every page is prerendered at build time (scripts/prerender.js); the browser then replaces it with the live
+  page. A new page needs an entry in `pages` in `src/lib/seo.js` (title under 60 characters, description under 160,
+  the same as its `usePageTitle`). Example listings and the test dashboards are noindex and stay out of the sitemap.
+  Read `window`/`document` only inside effects, so pages can render at build time.
 - Check layout at 1440px and 390px wide. No horizontal scrolling on phones.
 - Never commit secrets. This site has none and needs none.
 - Work on a branch and open a pull request. Julius approves every merge; `main` deploys to Netlify.

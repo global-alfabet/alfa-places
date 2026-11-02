@@ -6,7 +6,7 @@
   "description": "Alfa Finda (finda.globalalfabet.com): businesses, attractions and places to visit, in one search",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist-ssr --emptyOutDir && node scripts/prerender.js",
     "preview": "vite preview",
     "lint": "eslint .",
     "check": "npm run lint && npm run build",
