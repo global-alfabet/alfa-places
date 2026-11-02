@@ -17,6 +17,7 @@ import NotFound from "./pages/NotFound.jsx";
 import DemoStore from "./components/DemoStore.jsx";
 import CookieBanner from "./components/CookieBanner.jsx";
 import { site } from "./config.js";
+import { listenForClicks } from "./lib/events.js";
 
 // The test dashboards load only when someone opens them.
 const SignIn = lazy(() => import("./pages/dashboard/SignIn.jsx"));
@@ -34,6 +35,7 @@ function ScrollManager() {
 
 export default function App() {
   const { pathname } = useLocation();
+  useEffect(listenForClicks, []); // calls to action and links to other Global Alfabet sites (src/lib/events.js)
   const inDashboard = /^\/(dashboard|admin)(\/|$)/.test(pathname);
   return (
     <DemoStore>

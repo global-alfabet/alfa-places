@@ -13,7 +13,7 @@ export default function Privacy() {
       <h2>Browsing and searching</h2>
       <p>
         You don't need an account. We don't use advertising trackers. Searches run in your browser, and we don't keep a
-        record of them.{site.analytics.ga4 ? " If you accept analytics cookies, Google Analytics counts which pages are opened (see Cookies below)." : ""}
+        record of them.{site.analytics.ga4 ? " If you accept analytics cookies, Google Analytics counts which pages are opened and a few actions, such as the category a search matched (see Cookies below)." : ""}
       </p>
 
       <h2>Saved places and trip plans</h2>
@@ -57,8 +57,10 @@ export default function Privacy() {
           <p>
             <b>What's measured:</b> the pages you open (including search words in the page address), how you arrived,
             your approximate region (worked out from your IP address, which Google Analytics doesn't store), your type of
-            device and browser, and clicks on email, phone and WhatsApp links. We never send Google your name, email,
-            phone number, your location or anything you type into the Add your business form. Google signals and
+            device and browser, clicks on email, phone and WhatsApp links, our main buttons and links to our other sites,
+            which businesses you open, the category a search matched and whether it named a town, places and businesses
+            you save, how many days a trip plan covers, and that the Add your business form was sent. We never send
+            Google your name, email, phone number, your location or anything you type into the Add your business form. Google signals and
             advertising features are off.
           </p>
           <p>

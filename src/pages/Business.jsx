@@ -1,4 +1,4 @@
-import { Suspense, lazy, useMemo, useState } from "react";
+import { Suspense, lazy, useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDirectory, useListing, useStore, useThreads } from "../lib/store.js";
 import { site } from "../config.js";
@@ -19,6 +19,7 @@ import { DAYS, hoursSummary, openStatus } from "../lib/hours.js";
 import { distanceKm, placeOf } from "../lib/geo.js";
 import { timeAgo } from "../lib/time.js";
 import { useSavedBusinesses } from "../lib/saved.js";
+import { trackOnView } from "../lib/events.js";
 
 const BusinessMap = lazy(() => import("../components/BusinessMap.jsx"));
 
@@ -50,6 +51,12 @@ export default function Business() {
   const [sent, setSent] = useState(false);
   const [shared, setShared] = useState(false);
   const [allReviews, setAllReviews] = useState(false);
+  // view_business: a business page was opened (business_id, example)
+  const businessId = b?.id;
+  const example = !!b?.example;
+  useEffect(() => {
+    if (businessId) return trackOnView("view_business", { business_id: businessId, example });
+  }, [businessId, example]);
 
   const related = useMemo(() => {
     if (!b) return [];
