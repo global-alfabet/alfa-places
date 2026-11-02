@@ -37,6 +37,15 @@ export default function Privacy() {
         <b>Saved places:</b> the places and businesses you save are kept in your browser's local storage (not a cookie)
         so they're still there next time. They never leave your device. Your location is never put in a web address.
       </p>
+      {site.analytics.cloudflare && (
+        <p>
+          <b>Visit counts, without cookies:</b> we use Cloudflare Web Analytics to count visits, whatever you choose
+          on the cookie banner. It sets no cookies, stores nothing on your device and doesn't follow you to other
+          websites. It records the page address you open, the site you came from, your country, your type of device
+          and browser, and how fast the page loaded. Cloudflare does this for us and may process it outside your
+          country.
+        </p>
+      )}
       {site.analytics.ga4 ? (
         <>
           <p>

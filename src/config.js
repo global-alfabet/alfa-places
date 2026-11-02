@@ -9,7 +9,11 @@ export const site = {
   maps: "https://maps.globalalfabet.com",
   // Google Analytics 4 measurement ID ("G-…"). Julius pastes it here. Empty: no analytics and no cookie banner.
   // Analytics only runs after a visitor presses Accept (src/lib/consent.js).
-  analytics: { ga4: "G-47R00SKKE8" },
+  analytics: {
+    ga4: "G-47R00SKKE8",
+    // Cloudflare Web Analytics token: counts every visit without cookies (src/lib/webAnalytics.js). Empty: off.
+    cloudflare: "",
+  },
   // Our social media profiles, shown in the footer. LinkedIn is hidden until the account exists.
   // Leave one empty ("") to hide it.
   social: {

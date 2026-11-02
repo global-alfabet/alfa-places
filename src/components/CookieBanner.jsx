@@ -4,7 +4,7 @@
 import { useEffect, useState } from "react";
 import { currentChoice, initConsent, needsAnswer, setChoice } from "../lib/consent.js";
 
-export default function CookieBanner({ measurementId, policyHref }) {
+export default function CookieBanner({ measurementId, policyHref, countsVisits = false }) {
   const [open, setOpen] = useState(false);
   const [review, setReview] = useState(false);
   useEffect(() => {
@@ -32,8 +32,10 @@ export default function CookieBanner({ measurementId, policyHref }) {
           Cookies
         </p>
         <p id="cookie-text">
-          We'd like to use Google Analytics cookies to count visits and see which pages help people. They're only set if you accept, and
-          your choice covers Global Alfabet's sites. <a href={policyHref}>Cookie policy</a>
+          {countsVisits
+            ? "We count visits without cookies. With your OK, we'd also use Google Analytics cookies to see which pages help people."
+            : "We'd like to use Google Analytics cookies to count visits and see which pages help people."}{" "}
+          They're only set if you accept, and your choice covers Global Alfabet's sites. <a href={policyHref}>Cookie policy</a>
           {review && now && <span className="cookie-now"> You chose: {now === "granted" ? "Accept" : "Reject"}.</span>}
         </p>
       </div>
