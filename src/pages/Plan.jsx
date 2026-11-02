@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { destinations, interests } from "../content/destinations.js";
 import Icon from "../components/Icon.jsx";
@@ -6,6 +6,7 @@ import DestinationArt from "../components/DestinationArt.jsx";
 import { BUDGETS, START_TOWNS, planTrip } from "../lib/planner.js";
 import { useTrip } from "../lib/trip.js";
 import { usePageTitle } from "../lib/usePageTitle.js";
+import { track } from "../lib/consent.js";
 
 const bySlug = Object.fromEntries(destinations.map((d) => [d.slug, d]));
 
@@ -36,6 +37,14 @@ export default function Plan() {
         : null,
     [chosen.join(","), days, budget, start, trip.saved.join(",")], // eslint-disable-line react-hooks/exhaustive-deps
   );
+
+  // plan_trip_built: a trip plan was made (days). Sent once the choices have settled for 3 seconds, not on every tap.
+  const planned = plan && plan.stops.length > 0;
+  useEffect(() => {
+    if (!planned) return;
+    const t = setTimeout(() => track("plan_trip_built", { days }), 3000);
+    return () => clearTimeout(t);
+  }, [plan, planned, days]);
 
   const share = async () => {
     try {

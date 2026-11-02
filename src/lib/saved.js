@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { readJSON, writeJSON } from "./storage.js";
+import { track } from "./consent.js";
 
 const KEY = "alfa_finda_saved_businesses";
 const EVENT = "alfa-finda-saved";
@@ -19,6 +20,8 @@ export function useSavedBusinesses() {
   const toggle = useCallback((id) => {
     const now = readJSON(KEY, []);
     const next = now.includes(id) ? now.filter((s) => s !== id) : [...now, id];
+    // save_place: a business was saved (content_type "business", item_id: its id)
+    if (!now.includes(id)) track("save_place", { content_type: "business", item_id: id });
     writeJSON(KEY, next);
     setSaved(next);
     window.dispatchEvent(new Event(EVENT));

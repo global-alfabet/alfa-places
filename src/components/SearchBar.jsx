@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Icon from "./Icon.jsx";
 import { towns } from "../content/categories.js";
+import { parseQuery } from "../lib/search.js";
+import { track } from "../lib/consent.js";
 
 // withTown adds the "where" field from the Figma home page: what you're looking for, then the town.
 export default function SearchBar({
@@ -30,6 +32,9 @@ export default function SearchBar({
     const params = new URLSearchParams();
     params.set("q", q.trim());
     if (town) params.set("town", town);
+    // search: a search was made (category it matched, has_town; never the words typed)
+    const parsed = parseQuery(q);
+    track("search", { category: parsed.category || "none", has_town: !!(town || parsed.town) });
     navigate(`/search?${params}`);
   };
   return (

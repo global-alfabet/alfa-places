@@ -180,7 +180,7 @@ export default function Home() {
                 Pick your interests, how long you have and your budget. Alfa Finda suggests where to go, in an order
                 that makes sense on the road, and what to do each day.
               </p>
-              <Link className="btn" to="/plan">
+              <Link className="btn" to="/plan" data-cta="plan_trip" data-placement="home_feature">
                 Plan a trip
               </Link>
             </div>
@@ -198,15 +198,15 @@ export default function Home() {
                 and how to reach you. We check every listing before it goes live.
               </p>
               <div className="cta-actions">
-                <Link className="btn btn-white" to="/add-your-business">
+                <Link className="btn btn-white" to="/add-your-business" data-cta="add_business" data-placement="home_banner">
                   Add your business
                 </Link>
                 {site.demo ? (
-                  <Link className="btn btn-ghost" to="/sign-in">
+                  <Link className="btn btn-ghost" to="/sign-in" data-cta="try_dashboard" data-placement="home_banner">
                     Try the business dashboard
                   </Link>
                 ) : (
-                  <Link className="btn btn-ghost" to="/categories">
+                  <Link className="btn btn-ghost" to="/categories" data-cta="browse_businesses" data-placement="home_banner">
                     Browse businesses
                   </Link>
                 )}

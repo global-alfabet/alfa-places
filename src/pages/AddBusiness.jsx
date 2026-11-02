@@ -31,7 +31,8 @@ export default function AddBusiness() {
     setState("sending");
     try {
       await submitNetlifyForm("add-business", data);
-      track("generate_lead", { form: "add-business" });
+      // generate_lead: the Add your business form was sent (form_name only, never what's in it)
+      track("generate_lead", { form_name: "add-business" });
       setState("sent");
       form.reset();
       window.scrollTo(0, 0);

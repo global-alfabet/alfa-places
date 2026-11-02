@@ -39,7 +39,7 @@ export default function Nav() {
             Sign in
           </NavLink>
         )}
-        <Link to="/add-your-business" className="btn btn-small nav-cta">
+        <Link to="/add-your-business" className="btn btn-small nav-cta" data-cta="add_business" data-placement="nav">
           Add your business
         </Link>
         <button
