@@ -205,9 +205,21 @@ export const jsonLdText = (list) =>
       : { "@context": "https://schema.org", "@graph": list },
   ).replace(/</g, "\\u003c");
 
+// Search engine ownership checks (site.verification in src/config.js): the code from content="…", or the whole tag
+// if that's what was pasted. Empty: no tag.
+const verificationCode = (value) => {
+  const v = String(value || "").trim();
+  return (v.match(/content=["']([^"']+)["']/)?.[1] || v).replace(/[^\w-]/g, "");
+};
+const VERIFICATION = [
+  ["google-site-verification", verificationCode(site.verification?.google)],
+  ["msvalidate.01", verificationCode(site.verification?.bing)],
+].filter(([, code]) => code);
+
 /** The <head> tags for one page, as HTML. Used by the build. */
 export function headTags(meta) {
   const tags = [
+    ...VERIFICATION.map(([name, code]) => `<meta name="${name}" content="${code}" />`),
     `<title>${escape(meta.title)}</title>`,
     `<meta name="description" content="${escape(meta.description)}" />`,
     meta.noindex ? `<meta name="robots" content="noindex, follow" />` : "",

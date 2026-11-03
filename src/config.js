@@ -13,6 +13,16 @@ export const site = {
     ga4: "G-47R00SKKE8",
     // Cloudflare Web Analytics token: counts every visit without cookies (src/lib/webAnalytics.js). Empty: off.
     cloudflare: "39246bebf1494531914459c105726428",
+    // Meta Pixel ID (digits only, from Meta Events Manager). Empty: no pixel. Like GA4, it loads only after a
+    // visitor presses Accept (src/lib/consent.js), and sends only PageView and Lead (a business was added).
+    // Before you fill it in: the privacy and cookie wording must describe the pixel (Julius approves it).
+    metaPixel: "",
+  },
+  // Search engine ownership checks. Paste only the code from content="…" (Google Search Console: "HTML tag";
+  // Bing Webmaster Tools: "Meta tag"). Empty: no tag. Not needed for a domain verified with a DNS TXT record.
+  verification: {
+    google: "", // <meta name="google-site-verification">
+    bing: "", // <meta name="msvalidate.01">
   },
   // Our social media profiles, shown in the footer.
   // Leave one empty ("") to hide it.

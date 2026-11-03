@@ -1,23 +1,37 @@
-// Asks once whether we may use Google Analytics cookies, with Accept and Reject side by side and equally easy to press.
-// Shows nothing until the page is running in the browser (so prerendered HTML matches), and nothing at all when the
-// site has no measurement ID. "Cookie settings" links call openCookieSettings() to show it again.
+// Asks once whether we may use Google Analytics cookies (and the Meta Pixel's, when the site has a pixel ID), with
+// Accept and Reject side by side and equally easy to press. Shows nothing until the page is running in the browser
+// (so prerendered HTML matches), and nothing at all when the site has neither ID. "Cookie settings" links call
+// openCookieSettings() to show it again.
 import { useEffect, useState } from "react";
-import { currentChoice, initConsent, needsAnswer, setChoice } from "../lib/consent.js";
+import { analyticsEnabled, currentChoice, initConsent, needsAnswer, pixelEnabled, setChoice } from "../lib/consent.js";
 
-export default function CookieBanner({ measurementId, policyHref, countsVisits = false }) {
+// What we ask to use. Without a Meta Pixel ID the wording is exactly as before.
+function question(ga, pixel, countsVisits) {
+  if (!pixel) {
+    return countsVisits
+      ? "We count visits without cookies. With your OK, we'd also use Google Analytics cookies to see which pages help people."
+      : "We'd like to use Google Analytics cookies to count visits and see which pages help people.";
+  }
+  const what = ga
+    ? "Google Analytics and Meta Pixel cookies to see which pages help people and how our ads perform"
+    : "Meta Pixel cookies to see how our ads perform";
+  return countsVisits ? `We count visits without cookies. With your OK, we'd also use ${what}.` : `We'd like to use ${what}.`;
+}
+
+export default function CookieBanner({ measurementId, metaPixel = "", policyHref, countsVisits = false }) {
   const [open, setOpen] = useState(false);
   const [review, setReview] = useState(false);
   useEffect(() => {
-    initConsent(measurementId);
+    initConsent(measurementId, { metaPixel });
     setOpen(needsAnswer());
     const again = () => {
-      if (!measurementId) return;
+      if (!analyticsEnabled()) return;
       setReview(true);
       setOpen(true);
     };
     window.addEventListener("ga:cookie-settings", again);
     return () => window.removeEventListener("ga:cookie-settings", again);
-  }, [measurementId]);
+  }, [measurementId, metaPixel]);
   if (!open) return null;
   const answer = (v) => {
     setChoice(v);
@@ -32,9 +46,7 @@ export default function CookieBanner({ measurementId, policyHref, countsVisits =
           Cookies
         </p>
         <p id="cookie-text">
-          {countsVisits
-            ? "We count visits without cookies. With your OK, we'd also use Google Analytics cookies to see which pages help people."
-            : "We'd like to use Google Analytics cookies to count visits and see which pages help people."}{" "}
+          {question(!!measurementId, pixelEnabled(), countsVisits)}{" "}
           They're only set if you accept, and your choice covers Global Alfabet's sites. <a href={policyHref}>Cookie policy</a>
           {review && now && <span className="cookie-now"> You chose: {now === "granted" ? "Accept" : "Reject"}.</span>}
         </p>

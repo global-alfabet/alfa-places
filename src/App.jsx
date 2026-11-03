@@ -68,7 +68,12 @@ export default function App() {
         </Suspense>
       </main>
       {!inDashboard && <Footer />}
-      <CookieBanner measurementId={site.analytics.ga4} countsVisits={!!site.analytics.cloudflare} policyHref="/privacy#cookies" />
+      <CookieBanner
+        measurementId={site.analytics.ga4}
+        metaPixel={site.analytics.metaPixel}
+        countsVisits={!!site.analytics.cloudflare}
+        policyHref="/privacy#cookies"
+      />
     </DemoStore>
   );
 }

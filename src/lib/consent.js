@@ -1,22 +1,31 @@
-// Cookie consent and Google Analytics 4 (GA4) for Global Alfabet's sites. The same file is used on every site.
+// Cookie consent, Google Analytics 4 (GA4) and the Meta Pixel for Global Alfabet's sites. The same file is used on
+// every site.
 //
-// - Nothing is measured until the visitor presses Accept: until then Google's script isn't loaded at all.
+// - Nothing is measured until the visitor presses Accept: until then neither Google's nor Meta's script is loaded.
 // - The answer is kept for 6 months in one first-party cookie, ga_consent ("granted" or "denied"). On
 //   *.globalalfabet.com it's set for the whole domain, so one answer covers every Global Alfabet site. It only remembers
 //   the choice, so it's strictly necessary and needs no consent itself.
 // - A browser that sends Global Privacy Control counts as Reject, unless the visitor accepts in Cookie settings.
-// - Reject later (Cookie settings) stops measuring at once and deletes Google Analytics' cookies.
-// - Google signals and ad personalisation are off: no advertising features. Never send names, emails or phone numbers.
+// - Reject later (Cookie settings) stops measuring at once and deletes Google Analytics' and Meta's cookies.
+// - GA4: Google signals and ad personalisation are off, so no advertising features.
+// - Meta Pixel (only when a pixel ID is passed): after Accept it sends PageView (Meta's script also sends one when the
+//   address changes inside the site) and, through trackLead(), the standard Lead event when a form is sent. Automatic
+//   button and page data is off (autoConfig) and there is no advanced matching. Reject later revokes the pixel's
+//   consent, so it sends nothing more.
+// - Never send names, emails, phone numbers, form contents or the visitor's location to either.
 //
-// Use: initConsent(measurementId) once in the browser; track("event_name", { ... }) for events; a banner component
-// (CookieBanner.jsx) asks the question; a "Cookie settings" link calls openCookieSettings(). Without a measurement ID
-// nothing loads and no banner shows.
+// Use: initConsent(measurementId, { metaPixel }) once in the browser; track("event_name", { ... }) for GA4 events;
+// trackLead() when a form is sent; a banner component (CookieBanner.jsx) asks the question; a "Cookie settings" link
+// calls openCookieSettings(). Without a measurement ID or a pixel ID nothing loads and no banner shows.
 const NAME = "ga_consent";
 const MAX_AGE = 182 * 24 * 3600; // 6 months, then we ask again
 const GA_COOKIE_AGE = 13 * 30 * 24 * 3600; // Google Analytics cookies last 13 months at most
+const PIXEL_SCRIPT = "https://connect.facebook.net/en_US/fbevents.js";
 
 let gaId = "";
-let loaded = false;
+let pixelId = "";
+let loaded = false; // GA4 is measuring
+let pixelOn = false; // the Meta Pixel is sending
 let memory = null; // the answer for this page view when the browser blocks cookies
 const listeners = new Set();
 const inBrowser = () => typeof window !== "undefined" && typeof document !== "undefined";
@@ -38,11 +47,14 @@ export function savedChoice() {
 /** The answer in force: the saved one, or "denied" for a browser with Global Privacy Control, or null. */
 export const currentChoice = () => savedChoice() || (gpc() ? "denied" : null);
 
-/** True when the site measures visits (a measurement ID is set) and this visitor hasn't answered yet. */
-export const needsAnswer = () => !!gaId && currentChoice() === null;
+/** True when the site has analytics at all (a GA4 measurement ID or a Meta Pixel ID is set). */
+export const analyticsEnabled = () => !!gaId || !!pixelId;
 
-/** True when the site has analytics at all (a measurement ID is set). */
-export const analyticsEnabled = () => !!gaId;
+/** True when the site uses the Meta Pixel (a pixel ID is set), so the banner can say so. */
+export const pixelEnabled = () => !!pixelId;
+
+/** True when the site measures visits and this visitor hasn't answered yet. */
+export const needsAnswer = () => analyticsEnabled() && currentChoice() === null;
 
 function cookieDomain() {
   const h = location.hostname;
@@ -63,12 +75,16 @@ export function setChoice(value) {
   listeners.forEach((fn) => fn(v));
 }
 
-/** Call once in the browser with the site's GA4 measurement ID ("G-…"). An empty ID turns analytics off. */
-export function initConsent(measurementId) {
+/**
+ * Call once in the browser with the site's GA4 measurement ID ("G-…") and, optionally, its Meta Pixel ID (digits).
+ * An empty ID turns that tool off; with both empty nothing loads and no banner shows.
+ */
+export function initConsent(measurementId, { metaPixel = "" } = {}) {
   if (!inBrowser()) return;
   gaId = /^G-[A-Z0-9]{4,}$/i.test(String(measurementId || "")) ? String(measurementId) : "";
-  if (!gaId) return;
-  listenForContactClicks();
+  pixelId = /^\d{6,20}$/.test(String(metaPixel || "").trim()) ? String(metaPixel).trim() : "";
+  if (!analyticsEnabled()) return;
+  if (gaId) listenForContactClicks();
   apply();
 }
 
@@ -88,18 +104,31 @@ export function track(name, params = {}) {
   if (loaded && typeof window.gtag === "function") window.gtag("event", name, params);
 }
 
+/** Sends Meta's standard Lead event when a form was sent, only when the visitor accepted. It carries nothing else. */
+export function trackLead() {
+  if (pixelOn && typeof window.fbq === "function") window.fbq("track", "Lead");
+}
+
 function apply() {
-  if (!gaId) return;
   const on = currentChoice() === "granted";
-  if (on && !loaded) load();
-  else if (!on) {
-    if (loaded) {
-      window.gtag("consent", "update", { analytics_storage: "denied" });
-      window[`ga-disable-${gaId}`] = true;
-      loaded = false;
+  if (gaId) {
+    if (on && !loaded) load();
+    else if (!on) {
+      if (loaded) {
+        window.gtag("consent", "update", { analytics_storage: "denied" });
+        window[`ga-disable-${gaId}`] = true;
+        loaded = false;
+      }
     }
-    clearAnalyticsCookies();
   }
+  if (pixelId) {
+    if (on && !pixelOn) loadPixel();
+    else if (!on && pixelOn) {
+      window.fbq("consent", "revoke"); // the pixel sends nothing more, page changes included
+      pixelOn = false;
+    }
+  }
+  if (!on) clearAnalyticsCookies();
 }
 
 function load() {
@@ -130,11 +159,42 @@ function load() {
   loaded = true;
 }
 
-/** Deletes Google Analytics' cookies (_ga, _ga_<id>, _gid, _gat…) on this host and its parent domains. */
+/** Meta's base code (the fbq queue that fbevents.js picks up), written out here so nothing runs inline. */
+function loadPixel() {
+  if (typeof window.fbq !== "function") {
+    const fbq = function fbq() {
+      if (fbq.callMethod) fbq.callMethod.apply(fbq, arguments);
+      else fbq.queue.push(arguments);
+    };
+    if (!window._fbq) window._fbq = fbq;
+    fbq.push = fbq;
+    fbq.loaded = true;
+    fbq.version = "2.0";
+    fbq.queue = [];
+    window.fbq = fbq;
+    fbq("set", "autoConfig", false, pixelId); // no automatic button-click or page data
+    fbq("init", pixelId); // no second argument: no advanced matching
+  }
+  window.fbq("consent", "grant");
+  window.fbq("track", "PageView");
+  if (!document.querySelector("script[data-meta-pixel]")) {
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = PIXEL_SCRIPT;
+    s.dataset.metaPixel = "1";
+    document.head.appendChild(s);
+  }
+  pixelOn = true;
+}
+
+/** Deletes Google Analytics' (_ga, _ga_<id>, _gid, _gat…) and Meta's (_fbp, _fbc) cookies on this host and its parent domains. */
 function clearAnalyticsCookies() {
   let names = [];
   try {
-    names = document.cookie.split(";").map((c) => c.split("=")[0].trim()).filter((n) => /^(_ga(_|$)|_gid$|_gat)/.test(n));
+    names = document.cookie
+      .split(";")
+      .map((c) => c.split("=")[0].trim())
+      .filter((n) => /^(_ga(_|$)|_gid$|_gat|_fbp$|_fbc$)/.test(n));
   } catch {
     return;
   }

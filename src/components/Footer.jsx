@@ -49,7 +49,7 @@ export default function Footer() {
               <li>
                 <Link to="/credits">Photo credits</Link>
               </li>
-              {site.analytics.ga4 && (
+              {(site.analytics.ga4 || site.analytics.metaPixel) && (
                 <li>
                   <button type="button" className="footer-link" onClick={openCookieSettings}>
                     Cookie settings
