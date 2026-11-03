@@ -13,6 +13,7 @@ import {
   currentChoice,
   initConsent,
   needsAnswer,
+  onChoiceChange,
   pixelEnabled,
   setChoice,
   setChoices,
@@ -42,6 +43,9 @@ export default function CookieBanner({ measurementId, metaPixel = "", metaPixelP
   const [choosing, setChoosing] = useState(false);
   const [picks, setPicks] = useState({ analytics: false, advertising: false });
   const firstSwitch = useRef(null);
+  const reviewing = useRef(false);
+  reviewing.current = review;
+  const [, refresh] = useState(0);
   useEffect(() => {
     if (choosing) firstSwitch.current?.focus(); // Choose opens the switches: start on the first one
   }, [choosing]);
@@ -57,7 +61,16 @@ export default function CookieBanner({ measurementId, metaPixel = "", metaPixelP
       setOpen(true);
     };
     window.addEventListener("ga:cookie-settings", again);
-    return () => window.removeEventListener("ga:cookie-settings", again);
+    // An answer given in another tab: close this banner if it was only asking, or show the new answers if it was
+    // opened from Cookie settings.
+    const off = onChoiceChange(() => {
+      if (!reviewing.current) setOpen(needsAnswer());
+      refresh((n) => n + 1);
+    });
+    return () => {
+      window.removeEventListener("ga:cookie-settings", again);
+      off();
+    };
   }, [measurementId, metaPixel, metaPixelPages]);
   if (!open) return null;
   const close = () => {

@@ -41,6 +41,7 @@ let pixelInPage = false; // Meta's script is in this page
 let pixelBarred = false; // this visit started on, or came from, a page without the pixel
 let started = false;
 let watching = false;
+let known = null; // the answers this tab last acted on, to notice ones given in another tab
 let lastPage = "";
 const memory = { analytics: null, advertising: null }; // answers for this page view when the browser blocks cookies
 const listeners = new Set();
@@ -106,8 +107,9 @@ export function setChoices(answers) {
   // Also from a page that doesn't load the tool, e.g. a cookie policy page
   if (answers.analytics === "denied") clearCookies(GA_COOKIES);
   if (answers.advertising === "denied") clearCookies(META_COOKIES);
+  known = choices();
   apply();
-  listeners.forEach((fn) => fn(currentChoice(), currentAdChoice()));
+  listeners.forEach((fn) => fn(known.analytics, known.advertising));
 }
 
 /** Save the analytics answer ("granted" or "denied") and act on it straight away. */
@@ -130,10 +132,14 @@ export function initConsent(measurementId, { metaPixel = "", metaPixelPages = nu
   if (!analyticsEnabled()) return;
   if (gaId) listenForContactClicks();
   watchOtherTabs();
+  known = choices();
   apply();
 }
 
-/** Run fn(analyticsChoice, advertisingChoice) whenever the visitor changes an answer. Returns a function that stops listening. */
+/**
+ * Run fn(analyticsChoice, advertisingChoice) whenever the visitor changes an answer, here or in another tab (a banner
+ * still asking in this tab should then close). Returns a function that stops listening.
+ */
 export function onChoiceChange(fn) {
   listeners.add(fn);
   return () => listeners.delete(fn);
@@ -176,7 +182,7 @@ export function pageChanged() {
     if (pixelInPage) return location.reload();
     pixelBarred = true; // this visit has been on a page without the pixel: keep it off
   }
-  apply();
+  sync();
   if (pixelOn) pageView();
 }
 
@@ -258,8 +264,17 @@ const pixelHere = () => !pixelBarred && pixelPage(location.pathname);
 /** Another tab, or another Global Alfabet site, may have changed the answer: if it's no longer "granted", stop now. */
 function adStillAllowed() {
   if (currentAdChoice() === "granted") return true;
-  apply(); // revokes Meta's consent and deletes _fbp and _fbc
+  sync(); // revokes Meta's consent and deletes _fbp and _fbc
   return false;
+}
+
+/** Acts on the answers in force, and tells listeners when one was given in another tab since this tab last looked. */
+function sync() {
+  const now = choices();
+  const changed = known && (now.analytics !== known.analytics || now.advertising !== known.advertising);
+  known = now;
+  apply();
+  if (changed) listeners.forEach((fn) => fn(now.analytics, now.advertising));
 }
 
 /** Acts on answers changed in another tab as soon as this one is back in view (or at once, where browsers say so). */
@@ -267,12 +282,12 @@ function watchOtherTabs() {
   if (watching) return;
   watching = true;
   document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "visible") apply();
+    if (document.visibilityState === "visible") sync();
   });
   try {
     window.cookieStore?.addEventListener("change", (e) => {
       const names = [...(e.changed || []), ...(e.deleted || [])].map((c) => c.name);
-      if (names.some((n) => Object.values(COOKIES).includes(n))) apply();
+      if (names.some((n) => Object.values(COOKIES).includes(n))) sync();
     });
   } catch {
     /* no cookie change events in this browser */
