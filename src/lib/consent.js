@@ -8,16 +8,21 @@
 //   An analytics answer never switches Meta on: people who accepted analytics before are asked again.
 // - Nothing loads until its own answer is "granted": until then neither Google's nor Meta's script is loaded.
 // - A browser that sends Global Privacy Control counts as no to both, unless the visitor allows one in Cookie settings.
-// - Turning either off stops it at once and deletes its cookies on our domains (_ga…, or _fbp and _fbc).
+// - Turning either off stops it at once and deletes its cookies on our domains (_ga…, or _fbp and _fbc). An answer
+//   changed in another tab or on another Global Alfabet site counts too: it's read again before every Meta event, on
+//   every page change and when the tab comes back into view.
 // - GA4: Google signals and ad personalisation are off, so no advertising features.
 // - Meta Pixel (only with a pixel ID): sends PageView, which we send ourselves on each page (Meta's automatic tracking of
 //   page changes is off), and Lead through trackLead(). Meta's automatic button-click and page data is off (autoConfig)
 //   and there is no advanced matching. A site can limit the pixel to some pages (metaPixelPages): the pixel never loads
-//   on other pages, nor in a visit that started on one or came from one, and moving to one reloads the page without it.
+//   on other pages, nor in a visit that has been on one or came from one. From a page with the pixel, a link or
+//   needsFullLoad() turns the move to such a page into a full page load before the address changes, so its address
+//   never reaches Meta's code.
 // - Never send names, emails, phone numbers, form contents or the visitor's location to either.
 //
 // Use: initConsent(measurementId, { metaPixel, metaPixelPages }) once in the browser; pageChanged() after every page
-// change in a single-page site; track("event_name", { ... }) for GA4 events; trackLead() when a form is sent. A banner
+// change in a single-page site; needsFullLoad(address) before moving there in code; track("event_name", { ... }) for
+// GA4 events; trackLead() when a form is sent. A banner
 // component (CookieBanner.jsx) asks the question with needsAnswer(), choices() and setChoices(); a "Cookie settings" link
 // calls openCookieSettings(). Without a measurement ID or a pixel ID nothing loads and no banner shows.
 const COOKIES = { analytics: "ga_consent", advertising: "ad_consent" };
@@ -35,6 +40,7 @@ let pixelOn = false; // the Meta Pixel may send
 let pixelInPage = false; // Meta's script is in this page
 let pixelBarred = false; // this visit started on, or came from, a page without the pixel
 let started = false;
+let watching = false;
 let lastPage = "";
 const memory = { analytics: null, advertising: null }; // answers for this page view when the browser blocks cookies
 const listeners = new Set();
@@ -123,6 +129,7 @@ export function initConsent(measurementId, { metaPixel = "", metaPixelPages = nu
   }
   if (!analyticsEnabled()) return;
   if (gaId) listenForContactClicks();
+  watchOtherTabs();
   apply();
 }
 
@@ -144,21 +151,33 @@ export function track(name, params = {}) {
 
 /** Sends Meta's standard Lead event when a form was sent, only when the visitor allowed advertising. It carries nothing else. */
 export function trackLead() {
-  if (pixelOn && pixelHere() && typeof window.fbq === "function") window.fbq("track", "Lead");
+  if (pixelOn && adStillAllowed() && pixelHere()) window.fbq("track", "Lead");
 }
 
 /**
- * Call after every page change in a single-page site. Sends the Meta Pixel's PageView on pages it may run on, and
- * reloads the page without Meta's code when the visitor moves to a page it may not run on.
+ * True when moving to this address must be a full page load: Meta's code is in this page and may not run there. Check
+ * it before moving in code (navigate()), and use location.assign() instead. Links are handled already.
  */
-export function pageChanged() {
-  if (!inBrowser() || !pixelId) return;
-  if (!pixelPage(location.pathname)) {
-    if (pixelInPage) location.reload(); // a fresh page, without Meta's code (this visit then keeps it off)
-    return;
+export function needsFullLoad(address) {
+  if (!inBrowser() || !pixelInPage) return false;
+  try {
+    const to = new URL(address, location.href);
+    return to.origin === location.origin && !pixelPage(to.pathname);
+  } catch {
+    return false;
   }
+}
+
+/** Call after every page change in a single-page site. Picks up answers changed elsewhere and sends the PageView. */
+export function pageChanged() {
+  if (!inBrowser() || !analyticsEnabled()) return;
+  if (pixelId && !pixelPage(location.pathname)) {
+    // Moves here are full page loads (needsFullLoad, links); this catches any other way, such as Back.
+    if (pixelInPage) return location.reload();
+    pixelBarred = true; // this visit has been on a page without the pixel: keep it off
+  }
+  apply();
   if (pixelOn) pageView();
-  else if (currentAdChoice() === "granted") startPixel();
 }
 
 function apply() {
@@ -236,9 +255,84 @@ function cameFromBarredPage() {
 
 const pixelHere = () => !pixelBarred && pixelPage(location.pathname);
 
+/** Another tab, or another Global Alfabet site, may have changed the answer: if it's no longer "granted", stop now. */
+function adStillAllowed() {
+  if (currentAdChoice() === "granted") return true;
+  apply(); // revokes Meta's consent and deletes _fbp and _fbc
+  return false;
+}
+
+/** Acts on answers changed in another tab as soon as this one is back in view (or at once, where browsers say so). */
+function watchOtherTabs() {
+  if (watching) return;
+  watching = true;
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") apply();
+  });
+  try {
+    window.cookieStore?.addEventListener("change", (e) => {
+      const names = [...(e.changed || []), ...(e.deleted || [])].map((c) => c.name);
+      if (names.some((n) => Object.values(COOKIES).includes(n))) apply();
+    });
+  } catch {
+    /* no cookie change events in this browser */
+  }
+}
+
+/**
+ * With a page list, Meta's code must never see the address of a page outside it: links to those pages become full
+ * page loads before the address changes, and so does any other move inside the site (history), as a backstop. The
+ * history guard stays outermost even if Meta's script wraps pushState later (it ignores disablePushState, say): the
+ * address is checked before any wrapper gets it, and a wrapper that calls back into it reaches the browser's own.
+ */
+let guarding = false;
+function guardMoves() {
+  if (guarding || !pixelPages) return;
+  guarding = true;
+  window.addEventListener(
+    "click",
+    (e) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const a = e.target instanceof Element ? e.target.closest("a[href]") : null;
+      if (!a || (a.target && a.target !== "_self") || a.hasAttribute("download")) return;
+      if (!needsFullLoad(a.href)) return;
+      e.preventDefault(); // before the site's router sees the click
+      location.assign(a.href);
+    },
+    true,
+  );
+  for (const name of ["pushState", "replaceState"]) {
+    const native = history[name];
+    let outer = null; // whatever wraps it later
+    let inside = false;
+    const guarded = function guarded(state, unused, address) {
+      if (address != null && needsFullLoad(address)) return location.assign(new URL(address, location.href).href);
+      if (inside || !outer) return native.apply(history, arguments);
+      inside = true;
+      try {
+        return outer.apply(history, arguments);
+      } finally {
+        inside = false;
+      }
+    };
+    try {
+      Object.defineProperty(history, name, {
+        configurable: true,
+        get: () => guarded,
+        set: (fn) => {
+          outer = fn;
+        },
+      });
+    } catch {
+      history[name] = guarded;
+    }
+  }
+}
+
 /** Meta's base code (the fbq queue that fbevents.js picks up), written out here so nothing runs inline. */
 function startPixel() {
   if (!pixelHere()) return; // pageChanged() starts it on a page where it may run
+  guardMoves(); // before Meta's code arrives
   if (typeof window.fbq !== "function") {
     const fbq = function fbq() {
       if (fbq.callMethod) fbq.callMethod.apply(fbq, arguments);
@@ -269,7 +363,7 @@ function startPixel() {
 
 function pageView() {
   const page = pathOf(location.pathname);
-  if (!pixelOn || page === lastPage) return; // one PageView per page
+  if (!pixelOn || page === lastPage || !adStillAllowed()) return; // one PageView per page, while still allowed
   lastPage = page;
   window.fbq("track", "PageView");
 }

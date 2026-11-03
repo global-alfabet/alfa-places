@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Icon from "./Icon.jsx";
 import { towns } from "../content/categories.js";
 import { parseQuery } from "../lib/search.js";
-import { track } from "../lib/consent.js";
+import { needsFullLoad, track } from "../lib/consent.js";
 
 // withTown adds the "where" field from the Figma home page: what you're looking for, then the town.
 export default function SearchBar({
@@ -35,7 +35,9 @@ export default function SearchBar({
     // search: a search was made (category it matched, has_town; never the words typed)
     const parsed = parseQuery(q);
     track("search", { category: parsed.category || "none", has_town: !!(town || parsed.town) });
-    navigate(`/search?${params}`);
+    // From a page with the Meta Pixel, open the results as a fresh page, so the search words never reach Meta's code.
+    if (needsFullLoad(`/search?${params}`)) window.location.assign(`/search?${params}`);
+    else navigate(`/search?${params}`);
   };
   return (
     <form className={`searchbar ${size}${withTown ? " with-town" : ""}`} role="search" onSubmit={submit}>

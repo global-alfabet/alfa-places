@@ -38,7 +38,7 @@ function ScrollManager() {
 export default function App() {
   const { pathname } = useLocation();
   useEffect(listenForClicks, []); // calls to action and links to other Global Alfabet sites (src/lib/events.js)
-  useEffect(pageChanged, [pathname]); // the Meta Pixel, only on the pages in analytics.metaPixelPages (src/lib/consent.js)
+  useEffect(pageChanged, [pathname]); // answers changed elsewhere, and the Meta Pixel on analytics.metaPixelPages only
   const inDashboard = /^\/(dashboard|admin)(\/|$)/.test(pathname);
   return (
     <DemoStore>

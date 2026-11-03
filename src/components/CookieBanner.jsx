@@ -6,7 +6,7 @@
 //   analytics Accept never switches Meta on, and people who answered before are asked about advertising.
 // Shows nothing until the page is running in the browser (so prerendered HTML matches), and nothing at all when the
 // site has neither ID. "Cookie settings" links call openCookieSettings() to show it again.
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   analyticsEnabled,
   choices,
@@ -41,6 +41,10 @@ export default function CookieBanner({ measurementId, metaPixel = "", metaPixelP
   const [review, setReview] = useState(false);
   const [choosing, setChoosing] = useState(false);
   const [picks, setPicks] = useState({ analytics: false, advertising: false });
+  const firstSwitch = useRef(null);
+  useEffect(() => {
+    if (choosing) firstSwitch.current?.focus(); // Choose opens the switches: start on the first one
+  }, [choosing]);
   useEffect(() => {
     initConsent(measurementId, { metaPixel, metaPixelPages });
     setOpen(needsAnswer());
@@ -133,8 +137,8 @@ export default function CookieBanner({ measurementId, metaPixel = "", metaPixelP
         </p>
       </div>
       {choosing && (
-        <ul className="cookie-choices" id="cookie-choices">
-          {kinds.map((k) => (
+        <ul className="cookie-choices" aria-label="Cookie choices">
+          {kinds.map((k, i) => (
             <li key={k.key}>
               <label className="cookie-choice">
                 <span>
@@ -145,6 +149,7 @@ export default function CookieBanner({ measurementId, metaPixel = "", metaPixelP
                   type="checkbox"
                   role="switch"
                   className="cookie-switch"
+                  ref={i === 0 ? firstSwitch : undefined}
                   checked={picks[k.key]}
                   onChange={(e) => setPicks((p) => ({ ...p, [k.key]: e.target.checked }))}
                 />
@@ -162,7 +167,7 @@ export default function CookieBanner({ measurementId, metaPixel = "", metaPixelP
             Save choices
           </button>
         ) : (
-          <button type="button" className="cookie-btn" aria-expanded="false" aria-controls="cookie-choices" onClick={() => setChoosing(true)}>
+          <button type="button" className="cookie-btn" onClick={() => setChoosing(true)}>
             Choose
           </button>
         )}
