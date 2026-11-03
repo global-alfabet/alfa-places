@@ -19,6 +19,7 @@ import CookieBanner from "./components/CookieBanner.jsx";
 import Seo from "./components/Seo.jsx";
 import { site } from "./config.js";
 import { listenForClicks } from "./lib/events.js";
+import { pageChanged } from "./lib/consent.js";
 
 // The test dashboards load only when someone opens them.
 const SignIn = lazy(() => import("./pages/dashboard/SignIn.jsx"));
@@ -37,6 +38,7 @@ function ScrollManager() {
 export default function App() {
   const { pathname } = useLocation();
   useEffect(listenForClicks, []); // calls to action and links to other Global Alfabet sites (src/lib/events.js)
+  useEffect(pageChanged, [pathname]); // the Meta Pixel, only on the pages in analytics.metaPixelPages (src/lib/consent.js)
   const inDashboard = /^\/(dashboard|admin)(\/|$)/.test(pathname);
   return (
     <DemoStore>
@@ -71,6 +73,7 @@ export default function App() {
       <CookieBanner
         measurementId={site.analytics.ga4}
         metaPixel={site.analytics.metaPixel}
+        metaPixelPages={site.analytics.metaPixelPages}
         countsVisits={!!site.analytics.cloudflare}
         policyHref="/privacy#cookies"
       />
