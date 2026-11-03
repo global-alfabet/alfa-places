@@ -1,4 +1,5 @@
 import { Suspense, lazy, useEffect, useMemo, useState } from "react";
+import ClientOnly from "../components/ClientOnly.jsx";
 import { Link, useParams } from "react-router-dom";
 import { useDirectory, useListing, useStore, useThreads } from "../lib/store.js";
 import { site } from "../config.js";
@@ -394,9 +395,11 @@ export default function Business() {
                   Directions <Icon name="arrow" size={14} />
                 </a>
               </div>
-              <Suspense fallback={<div className="business-map" />}>
-                <BusinessMap businesses={[b]} staticMap zoom={14} />
-              </Suspense>
+              <ClientOnly fallback={<div className="business-map" />}>
+                <Suspense fallback={<div className="business-map" />}>
+                  <BusinessMap businesses={[b]} staticMap zoom={14} />
+                </Suspense>
+              </ClientOnly>
               <div className="map-card-foot">
                 <strong>{b.contact?.address || [b.suburb, b.city].filter(Boolean).join(", ")}</strong>
                 <span className="muted">

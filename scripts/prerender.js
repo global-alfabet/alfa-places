@@ -16,6 +16,9 @@ if (process.env.VITE_HASH_ROUTER) {
   process.exit(0);
 }
 
+// React's production build: the development one writes error messages and file paths into the HTML.
+process.env.NODE_ENV = "production";
+
 const { render, getMeta, headTags, routes, sitemap, llmsTxt } = await import(
   pathToFileURL(join(ssrDir, "entry-server.js")).href
 );
@@ -27,8 +30,15 @@ if (!HEAD.test(template) || !template.includes(ROOT)) {
   throw new Error('index.html needs <!--seo:start--> ... <!--seo:end--> in <head> and an empty <div id="root"></div>.');
 }
 
-const page = (url) =>
-  template.replace(HEAD, headTags(getMeta(url))).replace(ROOT, `<div id="root">${render(url)}</div>`);
+// A part that couldn't render on the server leaves a "<!--$!-->" boundary (and, in development, an error message) in
+// the HTML. Lazy-loaded parts go inside <ClientOnly> so they don't: stop the build if one slips through.
+function page(url) {
+  const html = render(url);
+  if (/<!--\$!-->|data-msg=|data-stck=/.test(html)) {
+    throw new Error(`${url} didn't render on the server (a lazy-loaded part outside <ClientOnly>?)`);
+  }
+  return template.replace(HEAD, headTags(getMeta(url))).replace(ROOT, `<div id="root">${html}</div>`);
+}
 
 function write(file, content) {
   const path = join(dist, file);

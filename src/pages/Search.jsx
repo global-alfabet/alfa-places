@@ -1,4 +1,5 @@
 import { Suspense, lazy, useCallback, useEffect, useMemo, useState } from "react";
+import ClientOnly from "../components/ClientOnly.jsx";
 import { Link, useSearchParams } from "react-router-dom";
 import SearchBar from "../components/SearchBar.jsx";
 import BusinessCard from "../components/BusinessCard.jsx";
@@ -316,9 +317,11 @@ export default function Search() {
       </section>
 
       <section className="search-map" aria-label="Map of results">
-        <Suspense fallback={<div className="business-map" />}>
-          <BusinessMap businesses={results} active={hovered} onSelect={selectFromMap} centre={centre} />
-        </Suspense>
+        <ClientOnly fallback={<div className="business-map" />}>
+          <Suspense fallback={<div className="business-map" />}>
+            <BusinessMap businesses={results} active={hovered} onSelect={selectFromMap} centre={centre} />
+          </Suspense>
+        </ClientOnly>
         <button className="map-locate" onClick={locate} aria-label="Use my location">
           <Icon name="locate" size={20} />
         </button>
