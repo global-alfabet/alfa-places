@@ -1,4 +1,5 @@
 import { Suspense, lazy, useEffect } from "react";
+import ClientOnly from "./components/ClientOnly.jsx";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Nav from "./components/Nav.jsx";
 import DemoBanner from "./components/DemoBanner.jsx";
@@ -21,7 +22,9 @@ import { site } from "./config.js";
 import { listenForClicks } from "./lib/events.js";
 import { pageChanged } from "./lib/consent.js";
 
-// The test dashboards load only when someone opens them.
+// The test dashboards load only when someone opens them, and only in the browser (not in the build's prerender).
+const loading = <div className="page-loading" aria-busy="true" />;
+const inBrowser = (page) => <ClientOnly fallback={loading}>{page}</ClientOnly>;
 const SignIn = lazy(() => import("./pages/dashboard/SignIn.jsx"));
 const Owner = lazy(() => import("./pages/dashboard/Owner.jsx"));
 const Admin = lazy(() => import("./pages/dashboard/Admin.jsx"));
@@ -50,7 +53,7 @@ export default function App() {
       <DemoBanner />
       {!inDashboard && <Nav />}
       <main id="main">
-        <Suspense fallback={<div className="page-loading" aria-busy="true" />}>
+        <Suspense fallback={loading}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/search" element={<Search />} />
@@ -62,9 +65,9 @@ export default function App() {
             <Route path="/add-your-business" element={<AddBusiness />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/credits" element={<Credits />} />
-            {site.demo && <Route path="/sign-in" element={<SignIn />} />}
-            {site.demo && <Route path="/dashboard/*" element={<Owner />} />}
-            {site.demo && <Route path="/admin/*" element={<Admin />} />}
+            {site.demo && <Route path="/sign-in" element={inBrowser(<SignIn />)} />}
+            {site.demo && <Route path="/dashboard/*" element={inBrowser(<Owner />)} />}
+            {site.demo && <Route path="/admin/*" element={inBrowser(<Admin />)} />}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
