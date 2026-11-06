@@ -13,6 +13,21 @@ export const site = {
     ga4: "G-47R00SKKE8",
     // Cloudflare Web Analytics token: counts every visit without cookies (src/lib/webAnalytics.js). Empty: off.
     cloudflare: "39246bebf1494531914459c105726428",
+    // Meta Pixel ID (digits only, from Meta Events Manager). Empty: no pixel. It loads only after a visitor allows
+    // advertising on the cookie banner (src/lib/consent.js), and sends only PageView and Lead (a business was added).
+    // Before you fill it in: Julius approves the privacy and cookie wording (src/pages/Privacy.jsx shows it then).
+    metaPixel: "",
+    // The only pages the pixel runs on, as the privacy notice lists them. Never search results, business pages or trip
+    // plans: their addresses carry what people search for and the businesses they open (health and medical included).
+    // A visit that has been on, or comes from, another page keeps the pixel off, and moving from a page with the pixel
+    // to another page is a full page load, so Meta's code never sees its address.
+    metaPixelPages: ["/", "/categories", "/destinations", "/destinations/*", "/add-your-business"],
+  },
+  // Search engine ownership checks. Paste only the code from content="…" (Google Search Console: "HTML tag";
+  // Bing Webmaster Tools: "Meta tag"). Empty: no tag. Not needed for a domain verified with a DNS TXT record.
+  verification: {
+    google: "", // <meta name="google-site-verification">
+    bing: "", // <meta name="msvalidate.01">
   },
   // Our social media profiles, shown in the footer.
   // Leave one empty ("") to hide it.

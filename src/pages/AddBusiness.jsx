@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { categories, towns } from "../content/categories.js";
 import { site } from "../config.js";
 import { submitNetlifyForm } from "../lib/forms.js";
-import { track } from "../lib/consent.js";
+import { track, trackLead } from "../lib/consent.js";
 import { usePageTitle } from "../lib/usePageTitle.js";
 import Icon from "../components/Icon.jsx";
 
@@ -33,6 +33,7 @@ export default function AddBusiness() {
       await submitNetlifyForm("add-business", data);
       // generate_lead: the Add your business form was sent (form_name only, never what's in it)
       track("generate_lead", { form_name: "add-business" });
+      trackLead(); // Meta Pixel Lead: the form was sent (nothing else)
       setState("sent");
       form.reset();
       window.scrollTo(0, 0);

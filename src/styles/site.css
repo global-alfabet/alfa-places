@@ -4936,6 +4936,32 @@ input[readonly] {
 }
 .cookie-btn:hover { background: #3a3a3c; }
 .cookie-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* With a Meta Pixel ID the banner asks about analytics and advertising separately: the text sits above Reject all,
+   Choose and Accept all (equal in size and style), and Choose shows a switch for each. The panel is solid white so the
+   grey descriptions keep at least 4.5:1 contrast over dark pages too. */
+.cookie-banner.is-detailed { flex-direction: column; align-items: stretch; gap: 14px; max-height: calc(100dvh - 32px); overflow-y: auto; background: #fff; }
+.cookie-banner.is-detailed .cookie-actions { justify-content: flex-end; }
+.cookie-banner.is-detailed .cookie-btn { min-width: 136px; } /* all three the same width */
+.cookie-choices { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.cookie-choice { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 14px; border-radius: 14px; background: #f5f5f7; cursor: pointer; }
+.cookie-choice > span { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.cookie-choice > span > span { color: #6e6e73; }
+.cookie-switch { appearance: none; -webkit-appearance: none; flex: none; position: relative; width: 44px; height: 26px; margin: 0; border-radius: 999px; background: #86868b; cursor: pointer; transition: background 0.2s; }
+.cookie-switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25); transition: transform 0.2s; }
+.cookie-switch:checked { background: #1d1d1f; }
+.cookie-switch:checked::after { transform: translateX(18px); }
+.cookie-switch:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (max-width: 600px) {
+  .cookie-banner.is-detailed .cookie-actions { display: grid; grid-template-columns: repeat(auto-fit, minmax(92px, 1fr)); }
+  .cookie-banner.is-detailed .cookie-actions .cookie-btn { min-width: 0; padding: 10px 6px; font-size: 13px; white-space: nowrap; }
+}
+@media (max-width: 359px) {
+  /* Too narrow for three buttons in a row: one under another, full width, still all the same. */
+  .cookie-banner.is-detailed .cookie-actions { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cookie-switch, .cookie-switch::after { transition: none; }
+}
 @media (max-width: 600px) {
   .cookie-banner { flex-direction: column; align-items: stretch; gap: 12px; bottom: 12px; padding: 16px; }
   .cookie-actions .cookie-btn { flex: 1; }
