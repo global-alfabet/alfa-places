@@ -53,7 +53,7 @@ const real = [
       "3D estate maps from your layout plan",
       "House designer for buyers",
       "Prices and payment plans per plot",
-      "PDF plot packs",
+      "Plot packs buyers can share",
     ],
     products: [],
     payments: [],
