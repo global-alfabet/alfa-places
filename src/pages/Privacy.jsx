@@ -71,7 +71,7 @@ export default function Privacy() {
           {ga && (
             <p>
               <b>Analytics:</b> we use Google Analytics to count visits and see which pages help people, but only if you
-              {ads ? " allow analytics" : " press Accept"} on the cookie banner. Until then Google's code isn't loaded
+              {" "}allow analytics on the cookie banner (OK, or switch it on under Manage). Until then Google's code isn't loaded
               and no analytics cookies are set.
             </p>
           )}
@@ -85,7 +85,7 @@ export default function Privacy() {
                 </li>
               ) : (
                 <li>
-                  <b>ga_consent</b> remembers your answer (Accept or Reject). It's needed for the banner to work, so
+                  <b>ga_consent</b> remembers your answer (OK, or what you saved under Manage). It's needed for the banner to work, so
                   it's set either way. It lasts 6 months, then we ask again. It's set for globalalfabet.com, so one
                   answer covers all Global Alfabet sites, including Alfa Maps and Alfa Shop.
                 </li>
@@ -99,7 +99,7 @@ export default function Privacy() {
             {ga && (
               <li>
                 <b>_ga</b> and <b>_ga_&lt;ID&gt;</b> are Google Analytics cookies. They tell visits apart so they can be
-                counted. They're set only after you {ads ? "allow analytics" : "accept"}, and last up to 13 months.
+                counted. They're set only after you allow analytics, and last up to 13 months.
               </li>
             )}
           </ul>
@@ -133,7 +133,7 @@ export default function Privacy() {
             </button>{" "}
             {ads
               ? "(also at the bottom of every page). You can switch analytics and advertising on or off separately. If you turn either off, we stop straight away and delete its cookies from our site (Google Analytics: _ga; Meta: _fbp and _fbc). What Meta already received stays with Meta under its policy. If your browser sends Global Privacy Control, we treat that as no to both, unless you allow them in Cookie settings."
-              : "(also at the bottom of every page). If you reject after accepting, we stop measuring straight away and delete the Google Analytics cookies. If your browser sends Global Privacy Control, we treat that as Reject unless you accept in Cookie settings."}
+              : "(also at the bottom of every page). If you switch analytics off after allowing it, we stop measuring straight away and delete the Google Analytics cookies. If your browser sends Global Privacy Control, we treat that as no unless you switch analytics on in Cookie settings."}
           </p>
         </>
       ) : (
