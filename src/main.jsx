@@ -18,5 +18,5 @@ createRoot(document.getElementById("root")).render(
   </StrictMode>,
 );
 
-// Visit counts for everyone, without cookies. Google Analytics waits for Accept (CookieBanner).
+// Visit counts for everyone, without cookies. Google Analytics waits for OK (CookieBanner).
 initWebAnalytics(site.analytics.cloudflare);

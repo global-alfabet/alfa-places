@@ -37,7 +37,7 @@ npm run check    # lint + build
    | `REPLY_TO` | Optional. Default `hello@globalalfabet.com`. |
 
 ## Analytics, cookies and social links
-- Google Analytics 4 runs only after a visitor presses Accept on the cookie banner (`src/lib/consent.js`, the same
+- Google Analytics 4 runs only after a visitor presses OK on the cookie banner, or allows it under Manage (`src/lib/consent.js`, the same
   file on every Global Alfabet site). Paste the measurement ID (`G-…`) into `analytics.ga4` in `src/config.js`; while
   it's empty there's no banner and nothing is measured. "Cookie settings" in the footer changes the answer.
 - The footer links to our social profiles from `social` in `src/config.js`. "#" is a placeholder until the real links
